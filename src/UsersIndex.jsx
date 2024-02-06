@@ -11,8 +11,8 @@ export function UsersIndex(props) {
         <p>Favorites: </p>
           <ul>
             {Object.values(user.films).map(film => (
-              <div>
-                <li key={film.id}>{film.title}</li>
+              <div key={film.id}>
+                <li>{film.title}</li>
                 <img width="100px" src={film.film_poster}/>
               </div>
             ))}
