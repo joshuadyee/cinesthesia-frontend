@@ -1,10 +1,11 @@
+import { LandingPage } from "./LandingPage";
 import { Signup } from "./Signup";
 import { Login } from "./Login";
 import { LogoutLink } from "./LogoutLink";
 import { UsersIndex } from "./UsersIndex";
 import { FilmsIndex } from "./FilmsIndex";
 import { FilmsShow } from "./FilmsShow";
-import { Modal } from "./Modal";
+import { Modal } from "./FilmModal";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -56,12 +57,12 @@ export function Content() {
 
   return (
     <div>
-      <h1>Cinesthesia</h1>
       <Modal show={isFilmsShowVisible} onClose={handleClose}>
         <FilmsShow film={currentFilm} />
       </Modal>
 
       <Routes>
+        <Route path="/" element={<LandingPage />}/>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<LogoutLink />}/>
