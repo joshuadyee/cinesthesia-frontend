@@ -3,6 +3,8 @@ import { Signup } from "./Signup";
 import { Login } from "./Login";
 import { LogoutLink } from "./LogoutLink";
 import { UsersIndex } from "./UsersIndex";
+import { UsersShow } from "./UsersShow";
+import { UsersModal } from "./UsersModal";
 import { FilmsIndex } from "./FilmsIndex";
 import { FilmsShow } from "./FilmsShow";
 import { FilmsModal } from "./FilmsModal";
@@ -28,34 +30,36 @@ export function Content() {
   const [directors, setDirectors] = useState([])
   const [genres, setGenres] = useState([])
 
+  const [isUsersShowVisible, setIsUsersShowVisible] = useState(false)
   const [isFilmsShowVisible, setIsFilmsShowVisible] = useState(false)
   const [isActorsShowVisible, setIsActorsShowVisible] = useState(false)
   const [isDirectorsShowVisible, setIsDirectorsShowVisible] = useState(false)
   const [isGenresShowVisible, setIsGenresShowVisible] = useState(false)
 
+  const [currentUser, setCurrentUser] = useState({})
   const [currentFilm, setCurrentFilm] = useState({})
   const [currentActor, setCurrentActor] = useState({})
   const [currentDirector, setCurrentDirector] = useState({})
   const [currentGenre, setCurrentGenre] = useState({})
 
   const handleUsersIndex = () => {
-    console.log("handle User index")
+    // console.log("handle User index")
     axios.get("http://localhost:3000/users.json").then(response => {
-      // console.log(response.data)
+      console.log(response.data)
       setUsers(response.data)
     })
   }
 
   const handleFilmsIndex = () => {
-    console.log("handle Films Index")
+    // console.log("handle Films Index")
     axios.get("http://localhost:3000/films.json").then(response => {
-      // console.log(response.data)
+      console.log(response.data)
       setFilms(response.data)
     })
   }
 
   const handleActorsIndex = () => {
-    console.log("handle actors index")
+    // console.log("handle actors index")
     axios.get("http://localhost:3000/cast.json").then(response => {
       // console.log(response.data)
       setActors(response.data)
@@ -63,7 +67,7 @@ export function Content() {
   }
 
   const handleDirectorsIndex = () => {
-    console.log("directors Index")
+    // console.log("directors Index")
     axios.get("http://localhost:3000/directors.json").then(response => {
       console.log(response.data)
       setDirectors(response.data)
@@ -71,14 +75,19 @@ export function Content() {
   }
 
   const handleGenresIndex = () => {
-    console.log("genres index")
+    // console.log("genres index")
     axios.get("http://localhost:3000/genres.json").then(response => {
       console.log(response.data)
       setGenres(response.data)
     })
   }
-  
 
+  const handleShowUser = user => {
+    console.log("showing user", user)
+    setIsUsersShowVisible(true)
+    setCurrentUser(user)
+  }
+  
   const handleShowFilm = film => {
     console.log("showing film", film)
     setIsFilmsShowVisible(true)
@@ -105,6 +114,7 @@ export function Content() {
 
   const handleClose = () => {
     console.log("handle Close")
+    setIsUsersShowVisible(false)
     setIsFilmsShowVisible(false)
     setIsActorsShowVisible(false)
     setIsDirectorsShowVisible(false)
@@ -124,6 +134,10 @@ export function Content() {
 
   return (
     <div>
+      <UsersModal show={isUsersShowVisible} onClose={handleClose}>
+        <UsersShow user={currentUser} />
+      </UsersModal>
+
       <FilmsModal show={isFilmsShowVisible} onClose={handleClose}>
         <FilmsShow film={currentFilm} />
       </FilmsModal>
@@ -145,7 +159,7 @@ export function Content() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<LogoutLink />}/>
-        <Route path="/users/index" element={<UsersIndex users={users} />}/>
+        <Route path="/users/index" element={<UsersIndex users={users} onShowUser={handleShowUser}/>}/>
         <Route path="/films/index" element={<FilmsIndex films={films} onShowFilm={handleShowFilm} />}/>
         <Route path="/actors/index" element={<ActorsIndex actors={actors} onShowActor={handleShowActor}/>}/>
         <Route path="/directors/index" element={<DirectorsIndex directors={directors} onShowDirector={handleShowDirector}/>}/>

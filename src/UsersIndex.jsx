@@ -10,14 +10,14 @@ export function UsersIndex(props) {
         <p>Bio: {user.bio}</p>
         <p>Favorites: </p>
           <ul>
-            {Object.values(user.films).map(film => (
-              <div key={film.id}>
+            {Object.values(user.films).map((film, i) => (
+              <div key={i}>
                 <li>{film.title}</li>
-                <img width="100px" src={film.film_poster}/>
+                <img width="100px" src={film.film_poster} />
               </div>
             ))}
           </ul>
-        {/* <p>Favorites: {JSON.stringify(user.films)}</p> */}
+        <button onClick={() => props.onShowUser(user)}>User Info</button>
         <hr />
       </div>
     ))}
