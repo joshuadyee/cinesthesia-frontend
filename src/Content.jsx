@@ -5,10 +5,13 @@ import { LogoutLink } from "./LogoutLink";
 import { UsersIndex } from "./UsersIndex";
 import { FilmsIndex } from "./FilmsIndex";
 import { FilmsShow } from "./FilmsShow";
-import { FilmsModal } from "./FilmModal";
+import { FilmsModal } from "./FilmsModal";
 import { ActorsIndex } from "./ActorsIndex";
 import { ActorsShow } from "./ActorsShow";
 import { ActorsModal } from "./ActorsModal";
+import { DirectorsIndex } from "./DirectorsIndex";
+import { DirectorsShow } from "./DirectorsShow";
+import { DirectorsModal } from "./DirectorsModal";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -16,21 +19,17 @@ import axios from "axios";
 export function Content() {
 
   const [users, setUsers] = useState([])
-
-  // const films = [
-  //   {title: "Interstellar", year: 2014, runtime: 169, logline: "When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans"}
-  // ]
   const [films, setFilms] = useState([])
-
   const [actors, setActors] = useState([])
+  const [directors, setDirectors] = useState([])
 
   const [isFilmsShowVisible, setIsFilmsShowVisible] = useState(false)
-
   const [isActorsShowVisible, setIsActorsShowVisible] = useState(false)
+  const [isDirectorsShowVisible, setIsDirectorsShowVisible] = useState(false)
 
   const [currentFilm, setCurrentFilm] = useState({})
-
   const [currentActor, setCurrentActor] = useState({})
+  const [currentDirector, setCurrentDirector] = useState({})
 
   const handleUsersIndex = () => {
     console.log("handle User index")
@@ -51,8 +50,16 @@ export function Content() {
   const handleActorsIndex = () => {
     console.log("handle actors index")
     axios.get("http://localhost:3000/cast.json").then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       setActors(response.data)
+    })
+  }
+
+  const handleDirectorsIndex = () => {
+    console.log("directors Index")
+    axios.get("http://localhost:3000/directors.json").then(response => {
+      console.log(response.data)
+      setDirectors(response.data)
     })
   }
 
@@ -61,17 +68,24 @@ export function Content() {
     setIsFilmsShowVisible(true)
     setCurrentFilm(film)
   }
+  
+  const handleShowActor = actor => {
+    console.log("showing actor", actor)
+    setIsActorsShowVisible(true)
+    setCurrentActor(actor)
+  }
+
+  const handleShowDirector = director => {
+    console.log("showing director", director)
+    setIsDirectorsShowVisible(true)
+    setCurrentDirector(director)
+  }
 
   const handleClose = () => {
     console.log("handle Close")
     setIsFilmsShowVisible(false)
     setIsActorsShowVisible(false)
-  }
-
-  const handleShowActor = actor => {
-    console.log("showing actor", actor)
-    setIsActorsShowVisible(true)
-    setCurrentActor(actor)
+    setIsDirectorsShowVisible(false)
   }
 
 
@@ -80,6 +94,8 @@ export function Content() {
   useEffect(handleFilmsIndex, [])
 
   useEffect(handleActorsIndex, [])
+
+  useEffect(handleDirectorsIndex, [])
 
   return (
     <div>
@@ -91,6 +107,10 @@ export function Content() {
         <ActorsShow actor={currentActor}/>
       </ActorsModal>
 
+      <DirectorsModal show={isDirectorsShowVisible} onClose={handleClose}>
+        <DirectorsShow director={currentDirector}/>
+      </DirectorsModal>
+
       <Routes>
         <Route path="/" element={<LandingPage />}/>
         <Route path="/signup" element={<Signup />} />
@@ -99,6 +119,7 @@ export function Content() {
         <Route path="/users/index" element={<UsersIndex users={users} />}/>
         <Route path="/films/index" element={<FilmsIndex films={films} onShowFilm={handleShowFilm} />}/>
         <Route path="/actors/index" element={<ActorsIndex actors={actors} onShowActor={handleShowActor}/>}/>
+        <Route path="/directors/index" element={<DirectorsIndex directors={directors} onShowDirector={handleShowDirector}/>}/>
       </Routes>
     </div>
   )

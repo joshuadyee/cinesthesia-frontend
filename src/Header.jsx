@@ -7,7 +7,8 @@ export function Header() {
       <a href="/logout">Log Out</a> ||
       <a href="/users/index">Users</a> ||
       <a href="/films/index">Films</a> ||
-      <a href="/actors/index">Actors</a>
+      <a href="/actors/index">Actors</a> || 
+      <a href="/directors/index">Directors</a>
     </header>
   )
 }
