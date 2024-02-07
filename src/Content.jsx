@@ -5,7 +5,10 @@ import { LogoutLink } from "./LogoutLink";
 import { UsersIndex } from "./UsersIndex";
 import { FilmsIndex } from "./FilmsIndex";
 import { FilmsShow } from "./FilmsShow";
-import { Modal } from "./FilmModal";
+import { FilmsModal } from "./FilmModal";
+import { ActorsIndex } from "./ActorsIndex";
+import { ActorsShow } from "./ActorsShow";
+import { ActorsModal } from "./ActorsModal";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -19,9 +22,15 @@ export function Content() {
   // ]
   const [films, setFilms] = useState([])
 
+  const [actors, setActors] = useState([])
+
   const [isFilmsShowVisible, setIsFilmsShowVisible] = useState(false)
 
+  const [isActorsShowVisible, setIsActorsShowVisible] = useState(false)
+
   const [currentFilm, setCurrentFilm] = useState({})
+
+  const [currentActor, setCurrentActor] = useState({})
 
   const handleUsersIndex = () => {
     console.log("handle User index")
@@ -39,6 +48,14 @@ export function Content() {
     })
   }
 
+  const handleActorsIndex = () => {
+    console.log("handle actors index")
+    axios.get("http://localhost:3000/cast.json").then(response => {
+      console.log(response.data)
+      setActors(response.data)
+    })
+  }
+
   const handleShowFilm = film => {
     console.log("showing film", film)
     setIsFilmsShowVisible(true)
@@ -48,6 +65,13 @@ export function Content() {
   const handleClose = () => {
     console.log("handle Close")
     setIsFilmsShowVisible(false)
+    setIsActorsShowVisible(false)
+  }
+
+  const handleShowActor = actor => {
+    console.log("showing actor", actor)
+    setIsActorsShowVisible(true)
+    setCurrentActor(actor)
   }
 
 
@@ -55,11 +79,17 @@ export function Content() {
 
   useEffect(handleFilmsIndex, [])
 
+  useEffect(handleActorsIndex, [])
+
   return (
     <div>
-      <Modal show={isFilmsShowVisible} onClose={handleClose}>
+      <FilmsModal show={isFilmsShowVisible} onClose={handleClose}>
         <FilmsShow film={currentFilm} />
-      </Modal>
+      </FilmsModal>
+
+      <ActorsModal show={isActorsShowVisible} onClose={handleClose}>
+        <ActorsShow actor={currentActor}/>
+      </ActorsModal>
 
       <Routes>
         <Route path="/" element={<LandingPage />}/>
@@ -68,6 +98,7 @@ export function Content() {
         <Route path="/logout" element={<LogoutLink />}/>
         <Route path="/users/index" element={<UsersIndex users={users} />}/>
         <Route path="/films/index" element={<FilmsIndex films={films} onShowFilm={handleShowFilm} />}/>
+        <Route path="/actors/index" element={<ActorsIndex actors={actors} onShowActor={handleShowActor}/>}/>
       </Routes>
     </div>
   )

@@ -1,6 +1,6 @@
 import "./Modal.css";
 
-export function FilmsModal(props) {
+export function ActorsModal(props) {
   if (props.show) {
     return (
       <div className="modal-background">
