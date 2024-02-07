@@ -12,9 +12,13 @@ import { ActorsModal } from "./ActorsModal";
 import { DirectorsIndex } from "./DirectorsIndex";
 import { DirectorsShow } from "./DirectorsShow";
 import { DirectorsModal } from "./DirectorsModal";
+import { GenresIndex } from "./GenresIndex";
+import { GenresShow } from "./GenresShow";
+import { GenresModal } from "./GenresModal";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 
 export function Content() {
 
@@ -22,14 +26,17 @@ export function Content() {
   const [films, setFilms] = useState([])
   const [actors, setActors] = useState([])
   const [directors, setDirectors] = useState([])
+  const [genres, setGenres] = useState([])
 
   const [isFilmsShowVisible, setIsFilmsShowVisible] = useState(false)
   const [isActorsShowVisible, setIsActorsShowVisible] = useState(false)
   const [isDirectorsShowVisible, setIsDirectorsShowVisible] = useState(false)
+  const [isGenresShowVisible, setIsGenresShowVisible] = useState(false)
 
   const [currentFilm, setCurrentFilm] = useState({})
   const [currentActor, setCurrentActor] = useState({})
   const [currentDirector, setCurrentDirector] = useState({})
+  const [currentGenre, setCurrentGenre] = useState({})
 
   const handleUsersIndex = () => {
     console.log("handle User index")
@@ -63,6 +70,15 @@ export function Content() {
     })
   }
 
+  const handleGenresIndex = () => {
+    console.log("genres index")
+    axios.get("http://localhost:3000/genres.json").then(response => {
+      console.log(response.data)
+      setGenres(response.data)
+    })
+  }
+  
+
   const handleShowFilm = film => {
     console.log("showing film", film)
     setIsFilmsShowVisible(true)
@@ -81,11 +97,18 @@ export function Content() {
     setCurrentDirector(director)
   }
 
+  const handleShowGenre = genre => {
+    console.log("showing genre", genre)
+    setIsGenresShowVisible(true)
+    setCurrentGenre(genre)
+  }
+
   const handleClose = () => {
     console.log("handle Close")
     setIsFilmsShowVisible(false)
     setIsActorsShowVisible(false)
     setIsDirectorsShowVisible(false)
+    setIsGenresShowVisible(false)
   }
 
 
@@ -96,6 +119,8 @@ export function Content() {
   useEffect(handleActorsIndex, [])
 
   useEffect(handleDirectorsIndex, [])
+
+  useEffect(handleGenresIndex, [])
 
   return (
     <div>
@@ -111,6 +136,10 @@ export function Content() {
         <DirectorsShow director={currentDirector}/>
       </DirectorsModal>
 
+      <GenresModal show={isGenresShowVisible} onClose={handleClose}>
+        <GenresShow genre={currentGenre}/>
+      </GenresModal>
+
       <Routes>
         <Route path="/" element={<LandingPage />}/>
         <Route path="/signup" element={<Signup />} />
@@ -120,6 +149,7 @@ export function Content() {
         <Route path="/films/index" element={<FilmsIndex films={films} onShowFilm={handleShowFilm} />}/>
         <Route path="/actors/index" element={<ActorsIndex actors={actors} onShowActor={handleShowActor}/>}/>
         <Route path="/directors/index" element={<DirectorsIndex directors={directors} onShowDirector={handleShowDirector}/>}/>
+        <Route path="/genres/index" element={<GenresIndex genres={genres} onShowGenre={handleShowGenre}/>}/>
       </Routes>
     </div>
   )
