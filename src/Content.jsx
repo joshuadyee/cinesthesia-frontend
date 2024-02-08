@@ -62,6 +62,8 @@ export function Content() {
     setCurrentUser(user)
   }
 
+  // UserReviews CRUD
+
   const handleUserReviewsIndex = () => {
     console.log("user reviews")
     axios.get("http://localhost:3000/film_users.json").then(response => {
@@ -78,6 +80,8 @@ export function Content() {
     })
   }
 
+  // Films CRUD
+  
   const handleFilmsIndex = () => {
     // console.log("handle Films Index")
     axios.get("http://localhost:3000/films.json").then(response => {
@@ -85,6 +89,30 @@ export function Content() {
       setFilms(response.data)
     })
   }
+
+  const handleShowFilm = film => {
+    console.log("showing film", film)
+    setIsFilmsShowVisible(true)
+    setCurrentFilm(film)
+  }
+
+  // Directors CRUD
+
+  const handleDirectorsIndex = () => {
+    // console.log("directors Index")
+    axios.get("http://localhost:3000/directors.json").then(response => {
+      console.log(response.data)
+      setDirectors(response.data)
+    })
+  }
+  
+  const handleShowDirector = director => {
+    console.log("showing director", director)
+    setIsDirectorsShowVisible(true)
+    setCurrentDirector(director)
+  }
+
+  // Actors CRUD
 
   const handleActorsIndex = () => {
     // console.log("handle actors index")
@@ -94,13 +122,13 @@ export function Content() {
     })
   }
 
-  const handleDirectorsIndex = () => {
-    // console.log("directors Index")
-    axios.get("http://localhost:3000/directors.json").then(response => {
-      console.log(response.data)
-      setDirectors(response.data)
-    })
+  const handleShowActor = actor => {
+    console.log("showing actor", actor)
+    setIsActorsShowVisible(true)
+    setCurrentActor(actor)
   }
+  
+  // Genres CRUD
 
   const handleGenresIndex = () => {
     // console.log("genres index")
@@ -108,24 +136,6 @@ export function Content() {
       console.log(response.data)
       setGenres(response.data)
     })
-  }
-  
-  const handleShowFilm = film => {
-    console.log("showing film", film)
-    setIsFilmsShowVisible(true)
-    setCurrentFilm(film)
-  }
-  
-  const handleShowActor = actor => {
-    console.log("showing actor", actor)
-    setIsActorsShowVisible(true)
-    setCurrentActor(actor)
-  }
-
-  const handleShowDirector = director => {
-    console.log("showing director", director)
-    setIsDirectorsShowVisible(true)
-    setCurrentDirector(director)
   }
 
   const handleShowGenre = genre => {
@@ -183,12 +193,12 @@ export function Content() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<LogoutLink />}/>
-        <Route path="/users/index" element={<UsersIndex users={users} onShowUser={handleShowUser}/>}/>
-        <Route path="/films/index" element={<FilmsIndex films={films} onShowFilm={handleShowFilm} />}/>
-        <Route path="/actors/index" element={<ActorsIndex actors={actors} onShowActor={handleShowActor}/>}/>
-        <Route path="/directors/index" element={<DirectorsIndex directors={directors} onShowDirector={handleShowDirector}/>}/>
-        <Route path="/genres/index" element={<GenresIndex genres={genres} onShowGenre={handleShowGenre}/>}/>
-        <Route path="/reviews/index" element={<UserReviewsIndex userReviews={userReviews}/>}/>
+        <Route path="/users" element={<UsersIndex users={users} onShowUser={handleShowUser}/>}/>
+        <Route path="/films" element={<FilmsIndex films={films} onShowFilm={handleShowFilm} />}/>
+        <Route path="/actors" element={<ActorsIndex actors={actors} onShowActor={handleShowActor}/>}/>
+        <Route path="/directors" element={<DirectorsIndex directors={directors} onShowDirector={handleShowDirector}/>}/>
+        <Route path="/genres" element={<GenresIndex genres={genres} onShowGenre={handleShowGenre}/>}/>
+        <Route path="/reviews" element={<UserReviewsIndex userReviews={userReviews}/>}/>
         <Route path="/reviews/new" element={<UserReviewsNew onCreateUserReview={handleCreateUserReview}/>}/>
       </Routes>
     </div>
