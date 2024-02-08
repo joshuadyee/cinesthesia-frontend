@@ -1,4 +1,9 @@
+import axios from "axios"
+import { Link } from "react-router-dom"
+
 export function UsersIndex(props) {
+
+  
   return (
     <div>
     <h1>Users Index</h1>
@@ -10,14 +15,17 @@ export function UsersIndex(props) {
         <p>Bio: {user.bio}</p>
         <p>Favorites: </p>
           <ul>
-            {Object.values(user.films).map((film, i) => (
+            {user.films.map((film, i) => (
               <div key={i}>
                 <li>{film.title}</li>
                 <img width="100px" src={film.film_poster} />
               </div>
             ))}
           </ul>
-        <button onClick={() => props.onShowUser(user)}>User Info</button>
+        {/* <button onClick={() => props.onShowUser(user)}>User Info</button> */}
+        <Link to={`/users/${user.id}`}>
+          <button>View Profile</button>
+        </Link>
         <hr />
       </div>
     ))}

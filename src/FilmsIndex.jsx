@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 export function FilmsIndex(props) {
   return (
     <div>
@@ -14,8 +16,10 @@ export function FilmsIndex(props) {
           <img width="250px" src={film.film_poster} />
           <p>
             <button onClick={() => props.onShowFilm(film)}>More Info</button>
-            <button onClick={() => props.onShowFilm(film)}>Review Film</button>
           </p>
+          <Link to="/reviews/new">
+            <button>Rate or Review</button>
+          </Link>
           <hr />
         </div>
       ))}

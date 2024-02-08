@@ -51,7 +51,7 @@ export function Content() {
   const handleUsersIndex = () => {
     // console.log("handle User index")
     axios.get("http://localhost:3000/users.json").then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       setUsers(response.data)
     })
   }
@@ -67,7 +67,7 @@ export function Content() {
   const handleUserReviewsIndex = () => {
     console.log("user reviews")
     axios.get("http://localhost:3000/film_users.json").then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       setUserReviews(response.data)
     })
   }
@@ -101,7 +101,7 @@ export function Content() {
   const handleDirectorsIndex = () => {
     // console.log("directors Index")
     axios.get("http://localhost:3000/directors.json").then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       setDirectors(response.data)
     })
   }
@@ -133,7 +133,7 @@ export function Content() {
   const handleGenresIndex = () => {
     // console.log("genres index")
     axios.get("http://localhost:3000/genres.json").then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       setGenres(response.data)
     })
   }
@@ -158,11 +158,11 @@ export function Content() {
 
   useEffect(handleFilmsIndex, [])
 
-  // useEffect(handleActorsIndex, [])
+  useEffect(handleActorsIndex, [])
 
-  // useEffect(handleDirectorsIndex, [])
+  useEffect(handleDirectorsIndex, [])
 
-  // useEffect(handleGenresIndex, [])
+  useEffect(handleGenresIndex, [])
 
   useEffect(handleUserReviewsIndex, [])
 
@@ -194,7 +194,9 @@ export function Content() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<LogoutLink />}/>
         <Route path="/users" element={<UsersIndex users={users} onShowUser={handleShowUser}/>}/>
+        <Route path="/users/:id" element={<UsersShow />}/>
         <Route path="/films" element={<FilmsIndex films={films} onShowFilm={handleShowFilm} />}/>
+        {/* <Route path="/films/:id" element={<FilmsShow />}/> */}
         <Route path="/actors" element={<ActorsIndex actors={actors} onShowActor={handleShowActor}/>}/>
         <Route path="/directors" element={<DirectorsIndex directors={directors} onShowDirector={handleShowDirector}/>}/>
         <Route path="/genres" element={<GenresIndex genres={genres} onShowGenre={handleShowGenre}/>}/>

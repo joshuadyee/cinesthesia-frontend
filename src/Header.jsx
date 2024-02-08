@@ -5,12 +5,12 @@ export function Header() {
       <a href="/signup">Create Account</a> ||
       <a href="/login">Login</a> ||
       <a href="/logout">Log Out</a> ||
-      <a href="/users/index">Users</a> ||
-      <a href="/films/index">Films</a> ||
-      <a href="/actors/index">Actors</a> || 
-      <a href="/directors/index">Directors</a> ||
-      <a href="/genres/index">Genres</a> ||
-      <a href="/reviews/index">Reviews</a> ||
+      <a href="/users">Users</a> ||
+      <a href="/films">Films</a> ||
+      <a href="/actors">Actors</a> || 
+      <a href="/directors">Directors</a> ||
+      <a href="/genres">Genres</a> ||
+      <a href="/reviews">Reviews</a> ||
       <a href="/reviews/new">New Review</a> ||
     </header>
   )

@@ -1,14 +1,57 @@
+import { useEffect, useState } from "react"
+import axios from "axios"
+
 export function UsersShow(props) {  
+  
+  const [user, setUser] = useState({films: [], film_users: []})
+
+  const getUser = () => {
+    console.log("getting user")
+    axios.get("http://localhost:3000/users/5.json").then(response => {
+      console.log(response.data)
+      setUser(response.data)
+    })
+  }
+
+  // const removeFavorite = (film) => {
+  //   console.log("removing favorite", film)
+  //   axios.delete(`http://localhost:3000/favorites/${film.id}.json`).then(response => {
+  //     console.log(response.data)
+  //   })
+  // }
+  
+  useEffect(getUser, [])
+
   return (
     <div>
-      <h1>Reviewed Films by {props.user.username}</h1>
-      {props.user.film_users.map(film_user => (
-        <div key={film_user.id}>
-          <h3>{film_user.film}</h3>
-            <p>Rating: {film_user.rating}</p>
-            <p>Review: {film_user.review}</p>
-        </div>
-      ))}
+      
+      <h1>{user.username}</h1>
+        <p>{user.profile_picture}</p>
+        <p>Bio: {user.bio}</p>
+        <p>Email: {user.email}</p>
+        <h2>Favorites</h2>
+          <ul>
+            {user.films.map(film => (
+              <div key={film.id}>
+                <li><h3>{film.title}</h3></li>
+                <img width="100px" src={film.film_poster} />
+                <p>
+                  <button onClick={() => removeFavorite(film)}>Remove From Favorites</button>
+                </p>
+              </div>
+            ))}
+          </ul>
+        <h2>Reviews by {user.username}</h2>
+          <ul>
+            {user.film_users.map(review => (
+              <div key={review.id}>
+                <li><h3>{review.film}</h3></li>
+                  <p>Rating: {review.rating}</p>
+                  <p>Review: {review.review}</p>
+              </div>
+            ))}
+          </ul>
+      <footer>Account created on {user.created_at}</footer>
     </div>
   )
 }
