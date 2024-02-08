@@ -5,6 +5,8 @@ import { LogoutLink } from "./LogoutLink";
 import { UsersIndex } from "./UsersIndex";
 import { UsersShow } from "./UsersShow";
 import { UsersModal } from "./UsersModal";
+import { UserReviewsIndex } from "./UserReviewsIndex";
+import { UserReviewsNew } from "./UserReviewsNew";
 import { FilmsIndex } from "./FilmsIndex";
 import { FilmsShow } from "./FilmsShow";
 import { FilmsModal } from "./FilmsModal";
@@ -29,6 +31,7 @@ export function Content() {
   const [actors, setActors] = useState([])
   const [directors, setDirectors] = useState([])
   const [genres, setGenres] = useState([])
+  const [userReviews, setUserReviews] = useState([])
 
   const [isUsersShowVisible, setIsUsersShowVisible] = useState(false)
   const [isFilmsShowVisible, setIsFilmsShowVisible] = useState(false)
@@ -42,11 +45,36 @@ export function Content() {
   const [currentDirector, setCurrentDirector] = useState({})
   const [currentGenre, setCurrentGenre] = useState({})
 
+
+  // User CRUD functions
+
   const handleUsersIndex = () => {
     // console.log("handle User index")
     axios.get("http://localhost:3000/users.json").then(response => {
       console.log(response.data)
       setUsers(response.data)
+    })
+  }
+
+  const handleShowUser = user => {
+    console.log("showing user", user)
+    setIsUsersShowVisible(true)
+    setCurrentUser(user)
+  }
+
+  const handleUserReviewsIndex = () => {
+    console.log("user reviews")
+    axios.get("http://localhost:3000/film_users.json").then(response => {
+      console.log(response.data)
+      setUserReviews(response.data)
+    })
+  }
+
+  const handleCreateUserReview = (params, successCallback) => {
+    console.log("handle create userReview", params)
+    axios.post("http://localhost:3000/film_users.json", params).then(response => {
+      setUserReviews([...userReviews, response.data])
+      successCallback()
     })
   }
 
@@ -80,12 +108,6 @@ export function Content() {
       console.log(response.data)
       setGenres(response.data)
     })
-  }
-
-  const handleShowUser = user => {
-    console.log("showing user", user)
-    setIsUsersShowVisible(true)
-    setCurrentUser(user)
   }
   
   const handleShowFilm = film => {
@@ -126,11 +148,13 @@ export function Content() {
 
   useEffect(handleFilmsIndex, [])
 
-  useEffect(handleActorsIndex, [])
+  // useEffect(handleActorsIndex, [])
 
-  useEffect(handleDirectorsIndex, [])
+  // useEffect(handleDirectorsIndex, [])
 
-  useEffect(handleGenresIndex, [])
+  // useEffect(handleGenresIndex, [])
+
+  useEffect(handleUserReviewsIndex, [])
 
   return (
     <div>
@@ -164,6 +188,8 @@ export function Content() {
         <Route path="/actors/index" element={<ActorsIndex actors={actors} onShowActor={handleShowActor}/>}/>
         <Route path="/directors/index" element={<DirectorsIndex directors={directors} onShowDirector={handleShowDirector}/>}/>
         <Route path="/genres/index" element={<GenresIndex genres={genres} onShowGenre={handleShowGenre}/>}/>
+        <Route path="/reviews/index" element={<UserReviewsIndex userReviews={userReviews}/>}/>
+        <Route path="/reviews/new" element={<UserReviewsNew onCreateUserReview={handleCreateUserReview}/>}/>
       </Routes>
     </div>
   )

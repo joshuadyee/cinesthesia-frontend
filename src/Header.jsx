@@ -10,6 +10,8 @@ export function Header() {
       <a href="/actors/index">Actors</a> || 
       <a href="/directors/index">Directors</a> ||
       <a href="/genres/index">Genres</a> ||
+      <a href="/reviews/index">Reviews</a> ||
+      <a href="/reviews/new">New Review</a> ||
     </header>
   )
 }
