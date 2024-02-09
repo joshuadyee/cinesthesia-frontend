@@ -196,7 +196,7 @@ export function Content() {
         <Route path="/users" element={<UsersIndex users={users} onShowUser={handleShowUser}/>}/>
         <Route path="/users/:id" element={<UsersShow />}/>
         <Route path="/films" element={<FilmsIndex films={films} onShowFilm={handleShowFilm} />}/>
-        {/* <Route path="/films/:id" element={<FilmsShow />}/> */}
+        <Route path="/films/:id" element={<FilmsShow />}/>
         <Route path="/actors" element={<ActorsIndex actors={actors} onShowActor={handleShowActor}/>}/>
         <Route path="/directors" element={<DirectorsIndex directors={directors} onShowDirector={handleShowDirector}/>}/>
         <Route path="/genres" element={<GenresIndex genres={genres} onShowGenre={handleShowGenre}/>}/>

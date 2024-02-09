@@ -11,6 +11,7 @@ export function UsersShow(props) {
 
 
   const params = useParams()
+  
   const getUser = () => {
     console.log("getting user")
     axios.get(`http://localhost:3000/users/${params.id}.json`).then(response => {
@@ -56,7 +57,7 @@ export function UsersShow(props) {
               </div>
             ))}
           </ul>
-          <button onClick={() => setIsAddFavoritesShowVisible(true)}>Add favorite</button>
+          {/* <button onClick={() => setIsAddFavoritesShowVisible(true)}>Add favorite</button> */}
         <h2>Reviews by {user.username}</h2>
           <ul>
             {user.film_users.map(review => (
