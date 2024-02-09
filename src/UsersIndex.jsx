@@ -16,10 +16,10 @@ export function UsersIndex(props) {
     .map(user => (
       <div key={user.id}>
         {/* <img src={user.profile_pic}/> */}
-        <p>Email: {user.email}</p>
-        <p>Username: {user.username}</p>
-        <p>Bio: {user.bio}</p>
-        <p>Favorites: </p>
+        <h3>{user.username}</h3>
+          <p>Email: {user.email}</p>
+          <p>Bio: {user.bio}</p>
+        <h3>Favorites: </h3>
           <ul>
             {user.films.map((film, i) => (
               <div key={i}>
@@ -28,7 +28,6 @@ export function UsersIndex(props) {
               </div>
             ))}
           </ul>
-        {/* <button onClick={() => props.onShowUser(user)}>User Info</button> */}
         <Link to={`/users/${user.id}`}>
           <button>View Profile</button>
         </Link>
