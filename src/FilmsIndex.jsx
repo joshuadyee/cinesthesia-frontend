@@ -1,12 +1,20 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 
 export function FilmsIndex(props) {
+  const [searchFilter, setSearchFilter] = useState("")
+
   return (
     <div>
       <h1>Films Index</h1>
-      {props.films.map(film => (
+      <p>
+        Search: <input type="text" value={searchFilter} onChange={event => setSearchFilter(event.target.value)}/>
+      </p>
+      {props.films.filter(film => film.title.toLowerCase()
+      .includes(searchFilter.toLowerCase()))
+      .map(film => (
         <div key={film.id}>
-          <p>{film.id}</p>
+          {/* <p>{film.id}</p> */}
           <h2>{film.title}</h2>
           <p>Directed by <b>{film.director}</b></p>
           <p>{film.year}</p>

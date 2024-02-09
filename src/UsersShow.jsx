@@ -1,21 +1,36 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { useParams } from "react-router-dom"
+
 
 export function UsersShow(props) {  
   
   const [user, setUser] = useState({films: [], film_users: []})
+  // const [isAddFavoritesShow, setIsAddFavoritesShowVisible] = useState(false)
+  // const [films, setFilms] = useState([])
 
+
+  const params = useParams()
   const getUser = () => {
     console.log("getting user")
-    axios.get("http://localhost:3000/users/5.json").then(response => {
+    axios.get(`http://localhost:3000/users/${params.id}.json`).then(response => {
       console.log(response.data)
       setUser(response.data)
     })
   }
 
-  // const removeFavorite = (film) => {
-  //   console.log("removing favorite", film)
-  //   axios.delete(`http://localhost:3000/favorites/${film.id}.json`).then(response => {
+  const removeFavorite = (film) => {
+    console.log("removing favorite", film)
+    axios.delete(`http://localhost:3000/favorites/${film.id}.json`).then(response => {
+      console.log(response.data)
+    })
+  }
+
+  // const addFavorite = event => {
+  //   console.log("adding favorite")
+  //   event.preventDefault()
+  //   const params = new FormData(event.target)
+  //   axios.post("http://localhost:3000/favorites.json", params).then(response => {
   //     console.log(response.data)
   //   })
   // }
@@ -41,6 +56,7 @@ export function UsersShow(props) {
               </div>
             ))}
           </ul>
+          <button onClick={() => setIsAddFavoritesShowVisible(true)}>Add favorite</button>
         <h2>Reviews by {user.username}</h2>
           <ul>
             {user.film_users.map(review => (
