@@ -12,6 +12,7 @@ export function UserReviewsNew(props) {
       <form onSubmit={handleSubmit}>
         <div>
           Film ID: <input name="film_id" type="number" />
+          {/* <input type="hidden" name="film_id" value={props.film.id}/> */}
         </div>
         <div>
           Rating: <input name="rating" type="number" step="0.1" min="0" max="10" />

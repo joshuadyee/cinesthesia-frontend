@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 export function FilmsShow(props) {
   const [film, setFilm] = useState({
@@ -16,6 +17,10 @@ export function FilmsShow(props) {
       setFilm(response.data)
     })
   }
+
+  // const addReview = () => {
+  //   console.log("writing review")
+  // }
   
 
   useEffect(getFilm, [])
@@ -41,6 +46,10 @@ export function FilmsShow(props) {
                 <hr />
             </ul>
           ))}
+          {/* <form onSubmit={addReview}>
+            <button type="submit">Leave Your Review on {film.title}</button>
+          </form> */}
+          <Link to={"/reviews/new"}>Leave Your Review on {film.title}</Link>
     </div>
 
   )

@@ -21,12 +21,6 @@ export function FilmsIndex(props) {
           </h2>
             <p>{film.year}</p>
             <img width="250px" src={film.film_poster} />
-          {/* <p>
-            <button onClick={() => props.onShowFilm(film)}>More Info</button>
-          </p> */}
-          {/* <Link to="/reviews/new">
-            <button>Rate or Review</button>
-          </Link> */}
           <hr />
         </div>
       ))}

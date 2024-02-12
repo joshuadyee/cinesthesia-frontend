@@ -57,7 +57,7 @@ export function Content() {
   }
 
   const handleShowUser = user => {
-    console.log("showing user", user)
+    // console.log("showing user", user)
     setIsUsersShowVisible(true)
     setCurrentUser(user)
   }
@@ -65,7 +65,7 @@ export function Content() {
   // UserReviews CRUD
 
   const handleUserReviewsIndex = () => {
-    console.log("user reviews")
+    // console.log("user reviews")
     axios.get("http://localhost:3000/film_users.json").then(response => {
       // console.log(response.data)
       setUserReviews(response.data)
@@ -73,7 +73,7 @@ export function Content() {
   }
 
   const handleCreateUserReview = (params, successCallback) => {
-    console.log("handle create userReview", params)
+    // console.log("handle create userReview", params)
     axios.post("http://localhost:3000/film_users.json", params).then(response => {
       setUserReviews([...userReviews, response.data])
       successCallback()
@@ -85,13 +85,13 @@ export function Content() {
   const handleFilmsIndex = () => {
     // console.log("handle Films Index")
     axios.get("http://localhost:3000/films.json").then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       setFilms(response.data)
     })
   }
 
   const handleShowFilm = film => {
-    console.log("showing film", film)
+    // console.log("showing film", film)
     setIsFilmsShowVisible(true)
     setCurrentFilm(film)
   }
@@ -107,7 +107,7 @@ export function Content() {
   }
   
   const handleShowDirector = director => {
-    console.log("showing director", director)
+    // console.log("showing director", director)
     setIsDirectorsShowVisible(true)
     setCurrentDirector(director)
   }
@@ -123,7 +123,7 @@ export function Content() {
   }
 
   const handleShowActor = actor => {
-    console.log("showing actor", actor)
+    // console.log("showing actor", actor)
     setIsActorsShowVisible(true)
     setCurrentActor(actor)
   }
@@ -139,13 +139,13 @@ export function Content() {
   }
 
   const handleShowGenre = genre => {
-    console.log("showing genre", genre)
+    // console.log("showing genre", genre)
     setIsGenresShowVisible(true)
     setCurrentGenre(genre)
   }
 
   const handleClose = () => {
-    console.log("handle Close")
+    // console.log("handle Close")
     setIsUsersShowVisible(false)
     setIsFilmsShowVisible(false)
     setIsActorsShowVisible(false)

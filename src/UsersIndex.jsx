@@ -15,22 +15,23 @@ export function UsersIndex(props) {
     .includes(searchFilter.toLowerCase()))
     .map(user => (
       <div key={user.id}>
-        {/* <img src={user.profile_pic}/> */}
-        <h3>{user.username}</h3>
+        <img src={user.profile_pic}/>
+        <Link to={`/users/${user.id}`}>
+          <h3>{user.username}</h3>
+        </Link>
           <p>Email: {user.email}</p>
           <p>Bio: {user.bio}</p>
         <h3>Favorites: </h3>
           <ul>
             {user.films.map((film, i) => (
               <div key={i}>
-                <li>{film.title}</li>
+                <Link to={`/films/${film.id}`}>
+                  <li>{film.title}</li>
+                </Link>
                 <img width="100px" src={film.film_poster} />
               </div>
             ))}
           </ul>
-        <Link to={`/users/${user.id}`}>
-          <button>View Profile</button>
-        </Link>
         <hr />
       </div>
     ))}
