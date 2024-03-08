@@ -7,7 +7,7 @@ export function UsersIndex(props) {
   
   return (
     <div>
-    <h1>Users Index</h1>
+    <h1 className="usersIndexTitle">Cinesthesia Members</h1>
     <p>
       Search: <input type="text" value={searchFilter} onChange={event => setSearchFilter(event.target.value)}/>
     </p>

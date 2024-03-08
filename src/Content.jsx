@@ -67,7 +67,7 @@ export function Content() {
   const handleUserReviewsIndex = () => {
     // console.log("user reviews")
     axios.get("http://localhost:3000/film_users.json").then(response => {
-      // console.log(response.data)
+      console.log(response.data)
       setUserReviews(response.data)
     })
   }
@@ -90,18 +90,17 @@ export function Content() {
     })
   }
 
-  const handleShowFilm = film => {
+  // const handleShowFilm = film => {
     // console.log("showing film", film)
-    setIsFilmsShowVisible(true)
-    setCurrentFilm(film)
-  }
+  //   setIsFilmsShowVisible(true)
+  //   setCurrentFilm(film)
+  // }
 
   // Directors CRUD
 
   const handleDirectorsIndex = () => {
-    // console.log("directors Index")
     axios.get("http://localhost:3000/directors.json").then(response => {
-      // console.log(response.data)
+      console.log("directors index", response.data)
       setDirectors(response.data)
     })
   }
@@ -189,13 +188,13 @@ export function Content() {
       </GenresModal>
 
       <Routes>
-        <Route path="/" element={<LandingPage />}/>
+        <Route path="/" element={<LandingPage films={films}/>}/>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<LogoutLink />}/>
         <Route path="/users" element={<UsersIndex users={users} onShowUser={handleShowUser}/>}/>
-        <Route path="/users/:id" element={<UsersShow films={films}/>}/>
-        <Route path="/films" element={<FilmsIndex films={films} onShowFilm={handleShowFilm} />}/>
+        <Route path="/users/:id" element={<UsersShow films={films} />}/>
+        <Route path="/films" element={<FilmsIndex films={films} />}/>
         <Route path="/films/:id" element={<FilmsShow />}/>
         <Route path="/actors" element={<ActorsIndex actors={actors} onShowActor={handleShowActor}/>}/>
         <Route path="/directors" element={<DirectorsIndex directors={directors} onShowDirector={handleShowDirector}/>}/>

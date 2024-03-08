@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useParams } from "react-router-dom"
-import { Link } from "react-router-dom"
+import { UserReviewsNew } from "./UserReviewsNew"
 
-export function FilmsShow(props) {
+export function FilmsShow() {
   const [film, setFilm] = useState({
     casts: [], director: "", film_poster: "", film_users: [], genres: [], logline: "", mpa_rating: "", runtime: "", title: "", year: ""
   })
@@ -18,9 +18,13 @@ export function FilmsShow(props) {
     })
   }
 
-  // const addReview = () => {
-  //   console.log("writing review")
-  // }
+  const handleCreateUserReview = (params, successCallback) => {
+    // console.log("handle create userReview", params)
+    axios.post("http://localhost:3000/film_users.json", params).then(response => {
+      setUserReviews([...userReviews, response.data])
+      successCallback()
+    })
+  }
   
 
   useEffect(getFilm, [])
@@ -38,7 +42,7 @@ export function FilmsShow(props) {
               <li>{cast.name}</li>
             </ul>
           ))}
-          <h4>Reviews From Users</h4>
+          <h4>Reviews From Members</h4>
           {film.film_users.map(review => (
             <ul key={review.id}>Review by {review.user}
                 <li>{review.rating}</li>
@@ -49,7 +53,8 @@ export function FilmsShow(props) {
           {/* <form onSubmit={addReview}>
             <button type="submit">Leave Your Review on {film.title}</button>
           </form> */}
-          <Link to={"/reviews/new"}>Leave Your Review on {film.title}</Link>
+          {/* <Link to={"/reviews/new"}>Leave Your Review on {film.title}</Link> */}
+          <UserReviewsNew film={film} onCreateUserReview={handleCreateUserReview}/>
     </div>
 
   )

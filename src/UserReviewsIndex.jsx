@@ -8,6 +8,8 @@ export function UserReviewsIndex(props) {
         <div key={userReview.id}>
           <h2 >{userReview.user}</h2>
             <h3>Film: {userReview.film}</h3>
+              {/* <img src={userReview.film_poster} width="200px" /> */} 
+              {/* need to add to img to backend */}
               <p>Rating: {userReview.rating}</p>
               <p>Review: {userReview.review}</p>
               <hr />

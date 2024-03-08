@@ -66,3 +66,13 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
+
+
+#root {
+  /* background-image: url("./src/assets/movie-background-collage.jpg"); */
+  font-family: Book Antiqua, Palatino, Palatino Linotype, Palatino LT STD, Georgia, serif;
+}
+
+.landingPageTitle {
+  text-align: center;
+}

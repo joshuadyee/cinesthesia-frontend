@@ -3,7 +3,7 @@ import axios from "axios"
 import { useParams } from "react-router-dom"
 
 
-export function UsersShow(props) {  
+export function UsersShow({films}) {  
   
   const [user, setUser] = useState({films: [], film_users: []})
 
@@ -61,7 +61,7 @@ export function UsersShow(props) {
           <label>
             Add a film to Favorites
             <select name="film_id" id="film">
-              {props.films.map((film, i) => (
+              {films.map((film, i) => (
                 <option key={i} value={film.id}>
                   {film.title}
                 </option>

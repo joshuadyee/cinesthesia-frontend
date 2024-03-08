@@ -1,7 +1,10 @@
-export function LandingPage() {
+import { FilmsIndex } from "./FilmsIndex"
+
+export function LandingPage({films}) {
   return (
-    <div>
-      <h1>CINESTHESIA</h1>
+    <div className="landingPageContainer">
+      <h1 className="landingPageTitle">WELCOME TO CINESTHESIA</h1>
+      <FilmsIndex films={films} />
     </div>
   )
 }
