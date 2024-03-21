@@ -28,6 +28,7 @@ export function Content() {
 
   const [users, setUsers] = useState([])
   const [films, setFilms] = useState([])
+  const [film, setFilm] = useState([])
   const [actors, setActors] = useState([])
   const [directors, setDirectors] = useState([])
   const [genres, setGenres] = useState([])
@@ -49,15 +50,14 @@ export function Content() {
   // User CRUD functions
 
   const handleUsersIndex = () => {
-    // console.log("handle User index")
     axios.get("http://localhost:3000/users.json").then(response => {
-      // console.log(response.data)
+      console.log("users index", response.data)
       setUsers(response.data)
     })
   }
 
   const handleShowUser = user => {
-    // console.log("showing user", user)
+    console.log("showing user", user)
     setIsUsersShowVisible(true)
     setCurrentUser(user)
   }
@@ -65,9 +65,8 @@ export function Content() {
   // UserReviews CRUD
 
   const handleUserReviewsIndex = () => {
-    // console.log("user reviews")
     axios.get("http://localhost:3000/film_users.json").then(response => {
-      console.log(response.data)
+      console.log("user reviews", response.data)
       setUserReviews(response.data)
     })
   }
@@ -100,7 +99,7 @@ export function Content() {
 
   const handleDirectorsIndex = () => {
     axios.get("http://localhost:3000/directors.json").then(response => {
-      console.log("directors index", response.data)
+      // console.log("directors index", response.data)
       setDirectors(response.data)
     })
   }

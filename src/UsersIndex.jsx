@@ -9,26 +9,32 @@ export function UsersIndex(props) {
     <div>
     <h1 className="usersIndexTitle">Cinesthesia Members</h1>
     <p>
-      Search: <input type="text" value={searchFilter} onChange={event => setSearchFilter(event.target.value)}/>
+      Search: <input 
+        type="text" 
+        value={searchFilter} 
+        onChange={event => setSearchFilter(event.target.value)}
+      />
     </p>
     {props.users.filter(user => user.username.toLowerCase()
     .includes(searchFilter.toLowerCase()))
     .map(user => (
       <div key={user.id}>
-        <img src={user.profile_pic}/>
+        <img src={user.profile_picture} width="150px"/>
         <Link to={`/users/${user.id}`}>
           <h3>{user.username}</h3>
         </Link>
           <p>Email: {user.email}</p>
           <p>Bio: {user.bio}</p>
-        <h3>Favorites: </h3>
+        <h3>Recent Reviews by {user.username}</h3>
           <ul>
-            {user.films.map((film, i) => (
+            {user.film_users.map((film_user, i) => (
               <div key={i}>
-                <Link to={`/films/${film.id}`}>
-                  <li>{film.title}</li>
-                </Link>
-                <img width="100px" src={film.film_poster} />
+                {/* <Link to={`/films/${film.id}`}>
+                  <img width="150px" src={film.film_poster} /> 
+                </Link>  */}
+                <p>{film_user.film}</p>
+                <p>{film_user.review}</p>
+                {/* <p>{film_user.rated.length}</p> */}
               </div>
             ))}
           </ul>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 export function UsersShow({films}) {  
@@ -22,7 +23,15 @@ export function UsersShow({films}) {
     console.log("removing favorite", film)
     axios.delete(`http://localhost:3000/favorites/${film.id}.json`)
     .then(response => {
-      console.log(response.data)
+      console.log("remove response", response.data)
+      setUser(currentUser => ({
+        ...currentUser,
+        films: currentUser.films.filter(f => f.id !== film.id)
+      }));
+      console.log("user object", user)
+    })
+    .catch(error => {
+      console.error("Error adding favorite", error)
     })
   }
 
@@ -30,9 +39,17 @@ export function UsersShow({films}) {
     console.log("adding favorite")
     event.preventDefault()
     const params = new FormData(event.target)
+    for (const [key, value] of params.entries()) {
+      console.log(key, value);
+    }
     axios.post("http://localhost:3000/favorites.json", params)
     .then(response => {
-      console.log(response.data)
+      console.log("favorite film addition", response.data)
+      setUser(currentUser => ({
+        ...currentUser,
+        films: [...currentUser.films, response.data]
+      }));
+      console.log("user", user)
     })
   }
   
@@ -42,15 +59,18 @@ export function UsersShow({films}) {
     <div>
       
       <h1>{user.username}</h1>
-        <p>{user.profile_picture}</p>
-        <p>Bio: {user.bio}</p>
+        <img src={user.profile_picture} width="400px" />
+        <p>{user.bio}</p>
         <p>Email: {user.email}</p>
         <h2>Favorites</h2>
           <ul>
             {user.films.map(film => (
               <div key={film.id}>
-                <li><h3>{film.title}</h3></li>
-                <img width="100px" src={film.film_poster} />
+                <li>
+                  <Link to={`/films/${film.id}`}>
+                    <img width="100px" src={film.film_poster} 
+                  /></Link>
+                </li>
                 <p>
                   <button onClick={() => removeFavorite(film)}>Remove From Favorites</button>
                 </p>
@@ -61,8 +81,8 @@ export function UsersShow({films}) {
           <label>
             Add a film to Favorites
             <select name="film_id" id="film">
-              {films.map((film, i) => (
-                <option key={i} value={film.id}>
+              {films.map((film) => (
+                <option key={film.id} value={film.id}>
                   {film.title}
                 </option>
               ))}
