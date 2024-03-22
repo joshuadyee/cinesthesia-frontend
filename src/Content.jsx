@@ -4,12 +4,10 @@ import { Login } from "./Login";
 import { LogoutLink } from "./LogoutLink";
 import { UsersIndex } from "./UsersIndex";
 import { UsersShow } from "./UsersShow";
-import { UsersModal } from "./UsersModal";
 import { UserReviewsIndex } from "./UserReviewsIndex";
 import { UserReviewsNew } from "./UserReviewsNew";
 import { FilmsIndex } from "./FilmsIndex";
 import { FilmsShow } from "./FilmsShow";
-import { FilmsModal } from "./FilmsModal";
 import { ActorsIndex } from "./ActorsIndex";
 import { ActorsShow } from "./ActorsShow";
 import { ActorsModal } from "./ActorsModal";
@@ -28,25 +26,27 @@ export function Content() {
 
   const [users, setUsers] = useState([])
   const [films, setFilms] = useState([])
-  const [film, setFilm] = useState([])
   const [actors, setActors] = useState([])
   const [directors, setDirectors] = useState([])
   const [genres, setGenres] = useState([])
   const [userReviews, setUserReviews] = useState([])
 
-  const [isUsersShowVisible, setIsUsersShowVisible] = useState(false)
-  const [isFilmsShowVisible, setIsFilmsShowVisible] = useState(false)
+  // const [isLoginShowVisible, setIsLoginShowVisible] = useState(false)
   const [isActorsShowVisible, setIsActorsShowVisible] = useState(false)
   const [isDirectorsShowVisible, setIsDirectorsShowVisible] = useState(false)
   const [isGenresShowVisible, setIsGenresShowVisible] = useState(false)
 
-  const [currentUser, setCurrentUser] = useState({})
-  const [currentFilm, setCurrentFilm] = useState({})
+  // const [loggedInStatus, setLoggedInStatus] = useState({})
   const [currentActor, setCurrentActor] = useState({})
   const [currentDirector, setCurrentDirector] = useState({})
   const [currentGenre, setCurrentGenre] = useState({})
 
 
+  // Auth functions
+
+ 
+
+  
   // User CRUD functions
 
   const handleUsersIndex = () => {
@@ -54,12 +54,6 @@ export function Content() {
       console.log("users index", response.data)
       setUsers(response.data)
     })
-  }
-
-  const handleShowUser = user => {
-    console.log("showing user", user)
-    setIsUsersShowVisible(true)
-    setCurrentUser(user)
   }
 
   // UserReviews CRUD
@@ -88,12 +82,6 @@ export function Content() {
       setFilms(response.data)
     })
   }
-
-  // const handleShowFilm = film => {
-    // console.log("showing film", film)
-  //   setIsFilmsShowVisible(true)
-  //   setCurrentFilm(film)
-  // }
 
   // Directors CRUD
 
@@ -144,8 +132,6 @@ export function Content() {
 
   const handleClose = () => {
     // console.log("handle Close")
-    setIsUsersShowVisible(false)
-    setIsFilmsShowVisible(false)
     setIsActorsShowVisible(false)
     setIsDirectorsShowVisible(false)
     setIsGenresShowVisible(false)
@@ -166,14 +152,6 @@ export function Content() {
 
   return (
     <div>
-      <UsersModal show={isUsersShowVisible} onClose={handleClose}>
-        <UsersShow user={currentUser} />
-      </UsersModal>
-
-      <FilmsModal show={isFilmsShowVisible} onClose={handleClose}>
-        <FilmsShow film={currentFilm} />
-      </FilmsModal>
-
       <ActorsModal show={isActorsShowVisible} onClose={handleClose}>
         <ActorsShow actor={currentActor}/>
       </ActorsModal>
@@ -191,7 +169,7 @@ export function Content() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<LogoutLink />}/>
-        <Route path="/users" element={<UsersIndex users={users} onShowUser={handleShowUser}/>}/>
+        <Route path="/users" element={<UsersIndex users={users}/>}/>
         <Route path="/users/:id" element={<UsersShow films={films} />}/>
         <Route path="/films" element={<FilmsIndex films={films} />}/>
         <Route path="/films/:id" element={<FilmsShow />}/>

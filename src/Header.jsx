@@ -1,9 +1,30 @@
 import { LogoutLink } from "./LogoutLink"
+import { LoginModal } from "./LoginModal"
+import { Login } from "./Login"
+import { useState } from "react"
+import { Signup } from "./Signup"
+import { SignupModal } from "./SignupModal"
 
 export function Header() {
 
-  let loggedInStatus
+  const [isLoginModalShowVisible, setIsLoginModalShowVisible] = useState(false)
+  const [isSignupModalShowVisible, setIsSignupModalShowVisible] = useState(false)
+  
+  const handleShowLoginModal = () => {
+    setIsLoginModalShowVisible(true)
+  }
 
+  const handleShowSignupModal = () => {
+    setIsSignupModalShowVisible(true)
+  }
+  
+  const handleClose = () => {
+    setIsLoginModalShowVisible(false)
+    setIsSignupModalShowVisible(false)
+  }
+
+  let loggedInStatus
+  
   if (localStorage.jwt) {
     loggedInStatus = (
       <>
@@ -19,8 +40,11 @@ export function Header() {
   } else {
       loggedInStatus = (
         <>
-          <a href="/login">Login</a> ||
-          <a href="/signup">Create Account</a> 
+          <button onClick={handleShowLoginModal}>Login</button>
+          {/* <a href="/login">Login</a> */}
+          ||
+          <button onClick={handleShowSignupModal}>Signup</button>
+          {/* <a href="/signup">Create Account</a>  */}
         </>
       )
   }
@@ -28,6 +52,13 @@ export function Header() {
   return (
     <header>
       <a href="/">Home</a> || {loggedInStatus}
+      <LoginModal show={isLoginModalShowVisible} onClose={handleClose}>
+        <Login />
+      </LoginModal>
+      <SignupModal show={isSignupModalShowVisible} onClose={handleClose}>
+        <Signup />
+      </SignupModal>
+    
     </header>
   )
 }

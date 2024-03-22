@@ -1,6 +1,6 @@
 import "./Modal.css";
 
-export function UsersModal(props) {
+export function LoginModal(props) {
   if (props.show) {
     return (
       <div className="modal-background">
