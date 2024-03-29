@@ -1,10 +1,23 @@
-import { useTransition } from "react";
+import axios from "axios"
+import { useEffect, useState } from "react"
 
-export function UserReviewsIndex(props) {
+
+export function UserReviewsIndex() {
+  const [userReviews, setUserReviews] = useState([])
+
+  const handleUserReviewsIndex = () => {
+    axios.get("http://localhost:3000/film_users.json").then(response => {
+      console.log("Reviews Index", response.data)
+      setUserReviews(response.data)
+    })
+  }
+  
+  useEffect(handleUserReviewsIndex, [])
+  
   return (
     <div>
       <h1>User reviews index</h1>
-      {props.userReviews.map(userReview => (
+      {userReviews.map(userReview => (
         <div key={userReview.id}>
           <h2 >{userReview.user}</h2>
             <h3>Film: {userReview.film}</h3>

@@ -1,6 +1,6 @@
 import "./Modal.css";
 
-export function DirectorsModal(props) {
+export function Modal(props) {
   if (props.show) {
     return (
       <div className="modal-background">

@@ -1,9 +1,8 @@
 import { LogoutLink } from "./LogoutLink"
-import { LoginModal } from "./LoginModal"
 import { Login } from "./Login"
 import { useState } from "react"
 import { Signup } from "./Signup"
-import { SignupModal } from "./SignupModal"
+import { Modal } from "./Modal"
 
 export function Header() {
 
@@ -41,10 +40,8 @@ export function Header() {
       loggedInStatus = (
         <>
           <button onClick={handleShowLoginModal}>Login</button>
-          {/* <a href="/login">Login</a> */}
           ||
           <button onClick={handleShowSignupModal}>Signup</button>
-          {/* <a href="/signup">Create Account</a>  */}
         </>
       )
   }
@@ -52,12 +49,12 @@ export function Header() {
   return (
     <header>
       <a href="/">Home</a> || {loggedInStatus}
-      <LoginModal show={isLoginModalShowVisible} onClose={handleClose}>
+      <Modal show={isLoginModalShowVisible} onClose={handleClose}>
         <Login />
-      </LoginModal>
-      <SignupModal show={isSignupModalShowVisible} onClose={handleClose}>
+      </Modal>
+      <Modal show={isSignupModalShowVisible} onClose={handleClose}>
         <Signup />
-      </SignupModal>
+      </Modal>
     
     </header>
   )

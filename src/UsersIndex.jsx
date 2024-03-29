@@ -1,9 +1,20 @@
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
 export function UsersIndex(props) {
   const [searchFilter, setSearchFilter] = useState("")
+
+  const [users, setUsers] = useState([])
+
+  const handleUsersIndex = () => {
+    axios.get("http://localhost:3000/users.json").then(response => {
+      console.log("users index", response.data)
+      setUsers(response.data)
+    })
+  }
+
+  useEffect(handleUsersIndex, [])
   
   return (
     <div>
@@ -15,7 +26,7 @@ export function UsersIndex(props) {
         onChange={event => setSearchFilter(event.target.value)}
       />
     </p>
-    {props.users.filter(user => user.username.toLowerCase()
+    {users.filter(user => user.username.toLowerCase()
     .includes(searchFilter.toLowerCase()))
     .map(user => (
       <div key={user.id}>

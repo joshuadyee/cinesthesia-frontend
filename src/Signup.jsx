@@ -4,6 +4,11 @@ import { useState } from "react";
 export function Signup() {
   const [errors, setErrors] = useState([]);
 
+  const jwt = localStorage.getItem("jwt");
+  if (jwt) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors([]);
@@ -12,8 +17,10 @@ export function Signup() {
       .post("http://localhost:3000/users.json", params)
       .then((response) => {
         console.log(response.data);
+        axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
+        localStorage.setItem("jwt", response.data.jwt);
         event.target.reset();
-        window.location.href = "/"; // Change this to hide a modal, redirect to a specific page, etc.
+        window.location.href = "/welcome"; // Change this to hide a modal, redirect to a specific page, etc.
       })
       .catch((error) => {
         console.log(error.response.data.errors);

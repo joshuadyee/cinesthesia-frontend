@@ -6,17 +6,17 @@ import { UsersIndex } from "./UsersIndex";
 import { UsersShow } from "./UsersShow";
 import { UserReviewsIndex } from "./UserReviewsIndex";
 import { UserReviewsNew } from "./UserReviewsNew";
+import { UserProfile } from "./UserProfile";
 import { FilmsIndex } from "./FilmsIndex";
 import { FilmsShow } from "./FilmsShow";
 import { ActorsIndex } from "./ActorsIndex";
 import { ActorsShow } from "./ActorsShow";
-import { ActorsModal } from "./ActorsModal";
 import { DirectorsIndex } from "./DirectorsIndex";
 import { DirectorsShow } from "./DirectorsShow";
-import { DirectorsModal } from "./DirectorsModal";
 import { GenresIndex } from "./GenresIndex";
 import { GenresShow } from "./GenresShow";
-import { GenresModal } from "./GenresModal";
+import { Welcome } from "./Welcome";
+import { Modal } from "./Modal";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -24,44 +24,23 @@ import axios from "axios";
 
 export function Content() {
 
-  const [users, setUsers] = useState([])
+  const [user, setUser] = useState([])
   const [films, setFilms] = useState([])
-  const [actors, setActors] = useState([])
-  const [directors, setDirectors] = useState([])
-  const [genres, setGenres] = useState([])
   const [userReviews, setUserReviews] = useState([])
 
-  // const [isLoginShowVisible, setIsLoginShowVisible] = useState(false)
   const [isActorsShowVisible, setIsActorsShowVisible] = useState(false)
   const [isDirectorsShowVisible, setIsDirectorsShowVisible] = useState(false)
   const [isGenresShowVisible, setIsGenresShowVisible] = useState(false)
 
-  // const [loggedInStatus, setLoggedInStatus] = useState({})
   const [currentActor, setCurrentActor] = useState({})
   const [currentDirector, setCurrentDirector] = useState({})
   const [currentGenre, setCurrentGenre] = useState({})
 
 
-  // Auth functions
-
- 
-
-  
-  // User CRUD functions
-
-  const handleUsersIndex = () => {
-    axios.get("http://localhost:3000/users.json").then(response => {
-      console.log("users index", response.data)
-      setUsers(response.data)
-    })
-  }
-
-  // UserReviews CRUD
-
-  const handleUserReviewsIndex = () => {
-    axios.get("http://localhost:3000/film_users.json").then(response => {
-      console.log("user reviews", response.data)
-      setUserReviews(response.data)
+  const handleFilmsIndex = () => {
+    axios.get("http://localhost:3000/films.json").then(response => {
+      console.log("Films Index", response.data)
+      setFilms(response.data)
     })
   }
 
@@ -73,55 +52,16 @@ export function Content() {
     })
   }
 
-  // Films CRUD
-  
-  const handleFilmsIndex = () => {
-    // console.log("handle Films Index")
-    axios.get("http://localhost:3000/films.json").then(response => {
-      // console.log(response.data)
-      setFilms(response.data)
-    })
-  }
-
-  // Directors CRUD
-
-  const handleDirectorsIndex = () => {
-    axios.get("http://localhost:3000/directors.json").then(response => {
-      // console.log("directors index", response.data)
-      setDirectors(response.data)
-    })
-  }
-  
   const handleShowDirector = director => {
     // console.log("showing director", director)
     setIsDirectorsShowVisible(true)
     setCurrentDirector(director)
   }
 
-  // Actors CRUD
-
-  const handleActorsIndex = () => {
-    // console.log("handle actors index")
-    axios.get("http://localhost:3000/cast.json").then(response => {
-      // console.log(response.data)
-      setActors(response.data)
-    })
-  }
-
   const handleShowActor = actor => {
     // console.log("showing actor", actor)
     setIsActorsShowVisible(true)
     setCurrentActor(actor)
-  }
-  
-  // Genres CRUD
-
-  const handleGenresIndex = () => {
-    // console.log("genres index")
-    axios.get("http://localhost:3000/genres.json").then(response => {
-      // console.log(response.data)
-      setGenres(response.data)
-    })
   }
 
   const handleShowGenre = genre => {
@@ -137,46 +77,37 @@ export function Content() {
     setIsGenresShowVisible(false)
   }
 
-
-  useEffect(handleUsersIndex, [])
-
   useEffect(handleFilmsIndex, [])
-
-  useEffect(handleActorsIndex, [])
-
-  useEffect(handleDirectorsIndex, [])
-
-  useEffect(handleGenresIndex, [])
-
-  useEffect(handleUserReviewsIndex, [])
 
   return (
     <div>
-      <ActorsModal show={isActorsShowVisible} onClose={handleClose}>
+      <Modal show={isActorsShowVisible} onClose={handleClose}>
         <ActorsShow actor={currentActor}/>
-      </ActorsModal>
+      </Modal>
 
-      <DirectorsModal show={isDirectorsShowVisible} onClose={handleClose}>
+      <Modal show={isDirectorsShowVisible} onClose={handleClose}>
         <DirectorsShow director={currentDirector}/>
-      </DirectorsModal>
+      </Modal>
 
-      <GenresModal show={isGenresShowVisible} onClose={handleClose}>
+      <Modal show={isGenresShowVisible} onClose={handleClose}>
         <GenresShow genre={currentGenre}/>
-      </GenresModal>
+      </Modal>
 
       <Routes>
         <Route path="/" element={<LandingPage films={films}/>}/>
         <Route path="/signup" element={<Signup />} />
+        <Route path="/welcome" element={<Welcome />}/>
+        <Route path="/profile" element={<UserProfile user={user}/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<LogoutLink />}/>
-        <Route path="/users" element={<UsersIndex users={users}/>}/>
+        <Route path="/users" element={<UsersIndex />}/>
         <Route path="/users/:id" element={<UsersShow films={films} />}/>
-        <Route path="/films" element={<FilmsIndex films={films} />}/>
+        <Route path="/films" element={<FilmsIndex films={films}/>}/>
         <Route path="/films/:id" element={<FilmsShow />}/>
-        <Route path="/actors" element={<ActorsIndex actors={actors} onShowActor={handleShowActor}/>}/>
-        <Route path="/directors" element={<DirectorsIndex directors={directors} onShowDirector={handleShowDirector}/>}/>
-        <Route path="/genres" element={<GenresIndex genres={genres} onShowGenre={handleShowGenre}/>}/>
-        <Route path="/reviews" element={<UserReviewsIndex userReviews={userReviews}/>}/>
+        <Route path="/actors" element={<ActorsIndex onShowActor={handleShowActor}/>}/>
+        <Route path="/directors" element={<DirectorsIndex onShowDirector={handleShowDirector}/>}/>
+        <Route path="/genres" element={<GenresIndex onShowGenre={handleShowGenre}/>}/>
+        <Route path="/reviews" element={<UserReviewsIndex/>}/>
         <Route path="/reviews/new" element={<UserReviewsNew onCreateUserReview={handleCreateUserReview}/>}/>
       </Routes>
     </div>

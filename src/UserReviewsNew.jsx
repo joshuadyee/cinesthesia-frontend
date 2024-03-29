@@ -35,6 +35,11 @@ export function UserReviewsNew(props) {
               value={props.film.id || ""}/>
           </div>
           <div>
+            Watched: <input 
+              type="checkbox"
+              name="watched"/>
+          </div>
+          <div>
             Rating: <input 
               name="rating"
               type="number"

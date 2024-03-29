@@ -52,12 +52,13 @@ export function UsersShow({films}) {
       console.log("user", user)
     })
   }
+
+  console.log("films array", films)
   
   useEffect(getUser, [])
 
   return (
     <div>
-      
       <h1>{user.username}</h1>
         <img src={user.profile_picture} width="400px" />
         <p>{user.bio}</p>
