@@ -1,37 +1,116 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { jwtDecode } from "jwt-decode"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { Link } from "react-router-dom"
 
-const useCurrentUser = (user) => {        // function useCurrentUser 
-  // const [currentUser, setCurrentUser] = useState({});   // declares variable currentUser
+export function UserProfile({films}) {
+  const jwt = localStorage.getItem("jwt")
+  const [user, setUser] = useState({films: [], film_users: []})
+  let currentUser = null
 
-  useEffect(() => {         // 
-    const token = localStorage.getItem('jwt'); // sets var token to the value of 'jwt'
-    if (token) {        // if token is present (logged in)
-      axios.get(`http://localhost:3000/users/${user.id}`, { //axios request
-        headers: {
-          Authorization: `Bearer ${token}` // fills in the token variable with currentUser token
-        }
-      })
-      .then(response => setCurrentUser(response.data))  // populates setCurrentUser object with data from response  
-      .catch(error => console.error("Error fetching current user", error)); // error handling
+  if (jwt) {
+    try {
+      currentUser = jwtDecode(jwt)
+    } catch (error) {
+      console.error("Token is invalid", error)
     }
-  }, []);
-
-  return user; // returns currentUser obj
-};
-
-export const UserProfile = ({user}) => {    // exports the function UserProfile
-  const currentUser = useCurrentUser(user);  // declaring currentUser variable to value of the function useCurrentUser()
-
-  if (!currentUser) { // if currentUser is null
-    return <div>Loading...</div>; // return loading screen
   }
 
-  return (    // otherwise return the user profile
+  if (!currentUser) {
+    return <div>Please log in to view this page</div>
+  }
+
+  const getCurrentUser = () => {
+    axios.get(`http://localhost:3000/users/${currentUser.user_id}.json`).then(response => {
+      console.log("current User data", response.data)
+      setUser(response.data)
+    }).catch(error => {
+      console.log("Error", error)
+    })
+  }
+
+  const removeFavorite = (film) => {
+    console.log("removing favorite", film)
+    axios.delete(`http://localhost:3000/favorites/${film.id}.json`)
+    .then(response => {
+      console.log("remove response", response.data)
+      setUser(currentUser => ({
+        ...currentUser,
+        films: currentUser.films.filter(f => f.id !== film.id)
+      }));
+      console.log("user object", user)
+    })
+    .catch(error => {
+      console.error("Error adding favorite", error)
+    })
+  }
+
+  const addFavorite = event => {
+    console.log("adding favorite")
+    event.preventDefault()
+    const params = new FormData(event.target)
+    for (const [key, value] of params.entries()) {
+      console.log(key, value);
+    }
+    axios.post("http://localhost:3000/favorites.json", params)
+    .then(response => {
+      console.log("favorite film addition", response.data)
+      setUser(currentUser => ({
+        ...currentUser,
+        films: [...currentUser.films, response.data]
+      }));
+      console.log("user", user)
+    })
+  }
+
+  useEffect(getCurrentUser, [])
+
+  return (
     <div>
-      <h1>User Profile</h1>
-      <p>Name: {currentUser.name}</p>
-      <p>Email: {currentUser.email}</p>
-    </div>
-  );
-};
+    <h1>{user.username}'s Profile</h1>
+      <img src={user.profile_picture} width="400px" />
+      <p>{user.bio}</p>
+      <p>Email: {user.email}</p>
+       <h2>Favorites</h2>
+        <ul>
+          {user.films.map(film => (
+            <div key={film.id}>
+              <li>
+                <Link to={`/films/${film.id}`}>
+                  <img width="100px" src={film.film_poster} 
+                /></Link>
+              </li>
+              <p>
+                <button onClick={() => removeFavorite(film)}>Remove From Favorites</button>
+              </p>
+            </div>
+          ))}
+        </ul>
+      <form onSubmit={addFavorite}>
+        <label>
+          Add a film to Favorites
+          <select name="film_id" id="film">
+            {films.map((film) => (
+              <option key={film.id} value={film.id}>
+                {film.title}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button type="submit">Add to Favorites</button>  
+      </form>
+      <h2>Reviews by {user.username}</h2>
+        <ul>
+          {user.film_users.map(review => (
+            <div key={review.id}>
+              <li><h3>{review.film}</h3></li>
+                <p>Rating: {review.rating}</p>
+                <p>Review: {review.review}</p>
+            </div>
+          ))}
+        </ul>
+    <footer>Account created on {user.created_at}</footer>
+  </div>
+  )
+}
+

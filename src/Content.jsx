@@ -97,7 +97,7 @@ export function Content() {
         <Route path="/" element={<LandingPage films={films}/>}/>
         <Route path="/signup" element={<Signup />} />
         <Route path="/welcome" element={<Welcome />}/>
-        <Route path="/profile" element={<UserProfile user={user}/>}/>
+        <Route path="/profile" element={<UserProfile user={user} films={films}/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<LogoutLink />}/>
         <Route path="/users" element={<UsersIndex />}/>
