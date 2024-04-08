@@ -1,27 +1,13 @@
-import { jwtDecode } from "jwt-decode"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
+import { CurrentUser } from "./Utility/CurrentUser"
 
 export function UserProfile({films}) {
-  const jwt = localStorage.getItem("jwt")
   const [user, setUser] = useState({films: [], film_users: []})
-  let currentUser = null
-
-  if (jwt) {
-    try {
-      currentUser = jwtDecode(jwt)
-    } catch (error) {
-      console.error("Token is invalid", error)
-    }
-  }
-
-  if (!currentUser) {
-    return <div>Please log in to view this page</div>
-  }
-
+  
   const getCurrentUser = () => {
-    axios.get(`http://localhost:3000/users/${currentUser.user_id}.json`).then(response => {
+    axios.get(`http://localhost:3000/users/${CurrentUser()}.json`).then(response => {
       console.log("current User data", response.data)
       setUser(response.data)
     }).catch(error => {

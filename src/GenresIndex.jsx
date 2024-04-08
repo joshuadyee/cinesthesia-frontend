@@ -1,10 +1,13 @@
+import { Modal } from "./Modal"
+import { GenresShow } from "./GenresShow"
 import { useEffect, useState } from "react"
 import axios from "axios"
 
-export const GenresIndex = (props) => {
+export const GenresIndex = () => {
   const [searchFilter, setSearchFilter] = useState("")
-
   const [genres, setGenres] = useState([])
+  const [isGenresShowVisible, setIsGenresShowVisible] = useState(false)
+  const [currentGenre, setCurrentGenre] = useState({})
 
   const handleGenresIndex = () => {
     axios.get("http://localhost:3000/genres.json").then(response => {
@@ -13,10 +16,24 @@ export const GenresIndex = (props) => {
     })
   }
 
+  const handleShowGenre = genre => {
+    setIsGenresShowVisible(true)
+    setCurrentGenre(genre)
+  }
+
+  const handleClose = () => {
+    setIsGenresShowVisible(false)
+  }
+
   useEffect(handleGenresIndex, [])
   
   return (
     <div>
+
+      <Modal show={isGenresShowVisible} onClose={handleClose}>
+        <GenresShow genre={currentGenre}/>
+      </Modal>
+
       <h1>Genres Index</h1>
       <p>
       Search: <input 
@@ -30,7 +47,7 @@ export const GenresIndex = (props) => {
       .map(genre => (
         <div key={genre.id}>
           <h3>{genre.genre}</h3>
-          <button onClick={() => props.onShowGenre(genre)}>More Info</button>
+          <button onClick={() => handleShowGenre(genre)}>More Info</button>
         </div>
       ))}
     </div>
