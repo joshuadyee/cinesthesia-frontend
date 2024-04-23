@@ -1,20 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
-import axios from "axios";
 
 export function FilmsIndex(props) {
   const [searchFilter, setSearchFilter] = useState("")
-
-  // const [films, setFilms] = useState([])
-
-  // const handleFilmsIndex = () => {
-  //   axios.get("http://localhost:3000/films.json").then(response => {
-  //     console.log("Films Index", response.data)
-  //     setFilms(response.data)
-  //   })
-  // }
-
-  // useEffect(handleFilmsIndex, [])
 
   return (
     <div>

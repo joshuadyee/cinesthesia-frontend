@@ -38,14 +38,12 @@ export function UsersIndex(props) {
           <p>Bio: {user.bio}</p>
         <h3>Recent Reviews by {user.username}</h3>
           <ul>
-            {user.film_users.map((film_user, i) => (
+            {user.film_users
+            .slice(0,3)
+            .map((film_user, i) => (
               <div key={i}>
-                {/* <Link to={`/films/${film.id}`}>
-                  <img width="150px" src={film.film_poster} /> 
-                </Link>  */}
-                <p>{film_user.film}</p>
+                <h5>{film_user.film}</h5>
                 <p>{film_user.review}</p>
-                {/* <p>{film_user.rated.length}</p> */}
               </div>
             ))}
           </ul>

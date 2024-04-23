@@ -11,16 +11,13 @@ export function UsersShow({films}) {
   const params = useParams()
 
   const getUser = () => {
-    console.log("getting user")
     axios.get(`http://localhost:3000/users/${params.id}.json`)
     .then(response => {
-      console.log(response.data)
-      setUser(response.data)
+      console.log("user data", response.data)
+      setUser(response.data) 
     })
   }
 
-  console.log("films array", films)
-  
   useEffect(getUser, [])
 
   return (
@@ -41,9 +38,11 @@ export function UsersShow({films}) {
               </div>
             ))}
           </ul>
-        <h2>Reviews by {user.username}</h2>
+        <h2>Recent Reviews by {user.username}</h2>
           <ul>
-            {user.film_users.map(review => (
+            {user.film_users
+            .slice(-3)
+              .map(review => (
               <div key={review.id}>
                 <li><h3>{review.film}</h3></li>
                   <p>Rating: {review.rating}</p>
@@ -51,6 +50,14 @@ export function UsersShow({films}) {
               </div>
             ))}
           </ul>
+        <h2>Movies watched by {user.username}</h2>
+        {user.film_users
+        .filter(film_user => film_user.watched)
+        .map(film_user => (
+          <div key={film_user.id}>
+            <p>{film_user.film}</p>
+          </div>
+        ))}
       <footer>Account created on {user.created_at}</footer>
     </div>
   )

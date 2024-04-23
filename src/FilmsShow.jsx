@@ -42,7 +42,7 @@ export function FilmsShow() {
               <li>{cast.name}</li>
             </ul>
           ))}
-          <h4>Reviews From Members</h4>
+          <h4>Recent Reviews</h4>
           {film.film_users.map(review => (
             <ul key={review.id}>Review by {review.user}
                 <li>{review.rating}</li>

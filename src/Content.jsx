@@ -7,6 +7,7 @@ import { UsersShow } from "./UsersShow";
 import { UserReviewsIndex } from "./UserReviewsIndex";
 import { UserReviewsNew } from "./UserReviewsNew";
 import { UserProfile } from "./UserProfile";
+import { UserFilms } from "./UserFilms";
 import { FilmsIndex } from "./FilmsIndex";
 import { FilmsShow } from "./FilmsShow";
 import { ActorsIndex } from "./ActorsIndex";
@@ -16,6 +17,7 @@ import { Welcome } from "./Welcome";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { UserReviews } from "./UserReviews";
 
 
 export function Content() {
@@ -24,7 +26,7 @@ export function Content() {
 
   const handleFilmsIndex = () => {
     axios.get("http://localhost:3000/films.json").then(response => {
-      console.log("Films Index", response.data)
+      // console.log("Films Index", response.data)
       setFilms(response.data)
     })
   }
@@ -46,6 +48,8 @@ export function Content() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/welcome" element={<Welcome />}/>
         <Route path="/profile" element={<UserProfile films={films}/>}/>
+        <Route path="/userfilms" element={<UserFilms />}/>
+        <Route path="/userreviews" element={<UserReviews/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<LogoutLink />}/>
         <Route path="/users" element={<UsersIndex />}/>
