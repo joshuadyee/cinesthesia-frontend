@@ -18,6 +18,8 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { UserReviews } from "./UserReviews";
+import { Sandbox } from "./sandbox";
+import { CurrentUser } from "./Utility/CurrentUser";
 
 
 export function Content() {
@@ -39,6 +41,8 @@ export function Content() {
     })
   }
 
+  const currentUser = CurrentUser()
+
   useEffect(handleFilmsIndex, [])
 
   return (
@@ -47,9 +51,9 @@ export function Content() {
         <Route path="/" element={<LandingPage films={films}/>}/>
         <Route path="/signup" element={<Signup />} />
         <Route path="/welcome" element={<Welcome />}/>
-        <Route path="/profile" element={<UserProfile films={films}/>}/>
-        <Route path="/userfilms" element={<UserFilms />}/>
-        <Route path="/userreviews" element={<UserReviews/>}/>
+        <Route path="/profile" element={<UserProfile films={films} currentUser={currentUser}/>}/>
+        <Route path="/userfilms" element={<UserFilms currentUser={currentUser}/>}/>
+        <Route path="/userreviews" element={<UserReviews currentUser={currentUser}/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<LogoutLink />}/>
         <Route path="/users" element={<UsersIndex />}/>
@@ -60,7 +64,7 @@ export function Content() {
         <Route path="/directors" element={<DirectorsIndex/>}/>
         <Route path="/genres" element={<GenresIndex/>}/>
         <Route path="/reviews" element={<UserReviewsIndex/>}/>
-        <Route path="/reviews/new" element={<UserReviewsNew onCreateUserReview={handleCreateUserReview}/>}/>
+        <Route path="/sandbox" element={<Sandbox />}/>
       </Routes>
     </div>
   )

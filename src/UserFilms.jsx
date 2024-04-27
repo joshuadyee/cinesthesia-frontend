@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react"
-import { CurrentUser } from "./Utility/CurrentUser"
 import axios from "axios"
 
-export function UserFilms() {
+export function UserFilms(props) {
 
   const [user, setUser] = useState({films: [], film_users: []})
   
   const getCurrentUser = () => {
-    axios.get(`http://localhost:3000/users/${CurrentUser()}.json`).then(response => {
+    axios.get(`http://localhost:3000/users/${props.currentUser.user_id}.json`).then(response => {
       console.log("current User data", response.data)
       setUser(response.data)
     }).catch(error => {
@@ -23,7 +22,7 @@ export function UserFilms() {
     <div>
       <h1>Films the user has watched</h1>
       {user.film_users
-      .filter(film_user => film_user.watched)
+      .filter(film_user => film_user.watched === true)
       .map(film_user => (
         <div key={film_user.id}>
           <p>

@@ -1,12 +1,11 @@
-import { CurrentUser } from "./Utility/CurrentUser"
 import { useEffect, useState } from "react"
 import axios from "axios" 
 
-export function UserReviews() {
+export function UserReviews({currentUser}) {
   const [user, setUser] = useState({films: [], film_users: []})
 
   const getCurrentUser = () => { 
-    axios.get(`http://localhost:3000/users/${CurrentUser()}.json`).then(response => {
+    axios.get(`http://localhost:3000/users/${currentUser.user_id}.json`).then(response => {
       console.log("current User data", response.data)
       setUser(response.data)
     }).catch(error => {
@@ -22,12 +21,13 @@ export function UserReviews() {
   return (
     <>
       <h1>Reviews</h1>
-      {user.film_users.map(review => (
+      {user.film_users
+      .filter(review => review.review !== null)
+      .map(review => (
         <div key={review.id}>
           <img src={review.film_poster} width='50px' />
           <h2>{review.film}</h2>
-          <p>{review.review}</p>
-          <p>{review.rating}</p>
+          <p>{review.rating} - {review.review}</p>
         </div>
       ))}
     </>

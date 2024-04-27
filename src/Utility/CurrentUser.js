@@ -10,7 +10,7 @@ export function CurrentUser() {
     } catch (error) {
       console.error("Token is invalid", error)
     } finally {
-      return currentUser.user_id
+      return currentUser
     }
   }
 }

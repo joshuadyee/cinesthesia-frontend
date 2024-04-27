@@ -5,8 +5,8 @@ export function FilmsIndex(props) {
   const [searchFilter, setSearchFilter] = useState("")
 
   return (
-    <div>
-      <h1 className="welcomeTitle">Browse Your Favorite Films</h1>
+    <div className="bg-white">
+      <h1 className="text-xl font-thin">Browse Your Favorite Films</h1>
         <h2 className="welcomeSubtitle">Curate and Share Your Taste in Film</h2>
         <p>
           Search: <input 

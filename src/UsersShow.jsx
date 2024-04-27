@@ -41,6 +41,7 @@ export function UsersShow({films}) {
         <h2>Recent Reviews by {user.username}</h2>
           <ul>
             {user.film_users
+            .filter(film_user => film_user.review !== null)
             .slice(-3)
               .map(review => (
               <div key={review.id}>
@@ -50,7 +51,7 @@ export function UsersShow({films}) {
               </div>
             ))}
           </ul>
-        <h2>Movies watched by {user.username}</h2>
+        {/* <h2>Movies watched by {user.username}</h2>
         {user.film_users
         .filter(film_user => film_user.watched)
         .map(film_user => (
@@ -58,7 +59,7 @@ export function UsersShow({films}) {
             <p>{film_user.film}</p>
           </div>
         ))}
-      <footer>Account created on {user.created_at}</footer>
-    </div>
+        <footer>Account created on {user.created_at}</footer> */}
+    </div> 
   )
 }

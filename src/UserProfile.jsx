@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
-import { CurrentUser } from "./Utility/CurrentUser"
 
-export function UserProfile({films}) {
+export function UserProfile({currentUser, films}) {
   const [user, setUser] = useState({films: [], film_users: []})
   
   const getCurrentUser = () => {
-    axios.get(`http://localhost:3000/users/${CurrentUser()}.json`).then(response => {
+    axios.get(`http://localhost:3000/users/${currentUser.user_id}.json`).then(response => {
       console.log("current User data", response.data)
       setUser(response.data)
     }).catch(error => {

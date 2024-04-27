@@ -2,11 +2,13 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { useParams } from "react-router-dom"
 import { UserReviewsNew } from "./UserReviewsNew"
+import { CurrentUser } from "./Utility/CurrentUser"
 
 export function FilmsShow() {
   const [film, setFilm] = useState({
     casts: [], director: "", film_poster: "", film_users: [], genres: [], logline: "", mpa_rating: "", runtime: "", title: "", year: ""
   })
+  const currentUser = CurrentUser() 
 
   const params = useParams()
 
@@ -50,11 +52,7 @@ export function FilmsShow() {
                 <hr />
             </ul>
           ))}
-          {/* <form onSubmit={addReview}>
-            <button type="submit">Leave Your Review on {film.title}</button>
-          </form> */}
-          {/* <Link to={"/reviews/new"}>Leave Your Review on {film.title}</Link> */}
-          <UserReviewsNew film={film} onCreateUserReview={handleCreateUserReview}/>
+          <UserReviewsNew film={film} onCreateUserReview={handleCreateUserReview} currentUser={currentUser}/>
     </div>
 
   )
