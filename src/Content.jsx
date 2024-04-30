@@ -46,7 +46,7 @@ export function Content() {
   useEffect(handleFilmsIndex, [])
 
   return (
-    <div>
+    <div className="font-serif">
       <Routes>
         <Route path="/" element={<LandingPage films={films}/>}/>
         <Route path="/signup" element={<Signup />} />
