@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
+import { UserLinkBar } from "./UserLinkBar"
 
 
 export function UsersShow({films}) {  
@@ -23,6 +24,7 @@ export function UsersShow({films}) {
   return (
     <div>
       <h1>{user.username}</h1>
+      <UserLinkBar />
         <img src={user.profile_picture} width="400px" />
         <p>{user.bio}</p>
         <p>Email: {user.email}</p>

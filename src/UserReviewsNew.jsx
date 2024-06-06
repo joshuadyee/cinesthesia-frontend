@@ -1,6 +1,7 @@
 import { Modal } from "./Modal"
 import { Login } from "./Login"
 import { useEffect, useState } from "react"
+import axios from "axios"
 
 export function UserReviewsNew(props) {
   
@@ -8,12 +9,19 @@ export function UserReviewsNew(props) {
   const [rating, setRating] = useState(0)
   const [watched, setWatched] = useState(
     localStorage.getItem(`watched-${props.film.id}`) === 'true')
-
-  useEffect(() => {
-    setWatched(localStorage.getItem(`watched-${props.film.id}`) === 'true')
-  }, [props.film.id])
+  const [isModalShowVisible, setIsModalShowVisible] = useState(false) 
 
   console.log("current User", props.currentUser)
+
+  const handleGetRatingAndReview = () => {
+    axios.get(`http://localhost:3000/film_users/${props.film.id}.json`).then(response => {
+      console.log("current User data", response.data)
+      setRating(response.data.rating)
+      setReview(response.data.review)
+    }).catch(error => {
+      console.log("Error", error)
+    })
+  }
 
   const updateBackend = async (data) => {     // declare an async function called updateBackend that takes a single argument called data
     let filmUser = props.film.film_users.find(filmUser => filmUser.user === props.currentUser.username)
@@ -57,22 +65,26 @@ export function UserReviewsNew(props) {
     updateBackend({ rating: newRating, film_id: props.film.id})
   }
 
-  const [isLoginModalShowVisible, setIsLoginModalShowVisible] = useState(false) 
-
   const handleShowLoginModal = () => {
-    setIsLoginModalShowVisible(true)
+    setIsModalShowVisible(true)
   }
 
   const handleClose = () => {
-    setIsLoginModalShowVisible(false)
+    setIsModalShowVisible(false)
   }
+
+  useEffect(() => {
+    setWatched(localStorage.getItem(`watched-${props.film.id}`) === 'true')
+  }, [props.film.id])
+
+  useEffect(handleGetRatingAndReview, [])
 
   if (!localStorage.jwt) {
     return (
       <div>
         <h3>
           Please <button onClick={handleShowLoginModal}>Login</button> to add a review
-          <Modal show={isLoginModalShowVisible} onClose={handleClose}>
+          <Modal show={isModalShowVisible} onClose={handleClose}>
             <Login />
           </Modal>
         </h3>
@@ -100,6 +112,7 @@ export function UserReviewsNew(props) {
           </div>
           <div>
             Rating: <input 
+              className="text-black"
               name="rating"
               type="number"
               step="0.1"
@@ -110,6 +123,7 @@ export function UserReviewsNew(props) {
           </div> 
           <div>
             Review: <input
+              className="text-black"
               name="review"
               type="text"
               value={review}

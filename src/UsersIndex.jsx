@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
-export function UsersIndex(props) {
+export function UsersIndex() {
   const [searchFilter, setSearchFilter] = useState("")
 
   const [users, setUsers] = useState([])
@@ -17,39 +17,41 @@ export function UsersIndex(props) {
   useEffect(handleUsersIndex, [])
   
   return (
-    <div>
-    <h1 className="usersIndexTitle">Cinesthesia Members</h1>
-    <p>
-      Search: <input 
-        type="text" 
-        value={searchFilter} 
-        onChange={event => setSearchFilter(event.target.value)}
-      />
-    </p>
-    {users.filter(user => user.username.toLowerCase()
-    .includes(searchFilter.toLowerCase()))
-    .map(user => (
-      <div key={user.id}>
-        <img src={user.profile_picture} width="150px"/>
-        <Link to={`/users/${user.id}`}>
-          <h3>{user.username}</h3>
-        </Link>
-          <p>Email: {user.email}</p>
-          <p>Bio: {user.bio}</p>
-        <h3>Recent Reviews by {user.username}</h3>
-          <ul>
-            {user.film_users
-            .slice(0,3)
-            .map((film_user, i) => (
-              <div key={i}>
-                <h5>{film_user.film}</h5>
-                <p>{film_user.review}</p>
-              </div>
-            ))}
-          </ul>
-        <hr />
-      </div>
-    ))}
-    </div>
+    <section className="p-5">
+      <h1 className="usersIndexTitle">Cinesthesia Members</h1>
+      <form className="pb-4 text-right">
+            <input 
+              placeholder="Search by Username..."
+              type="text"
+              value={searchFilter}
+              onChange={event => setSearchFilter(event.target.value)}
+              className="text-black bg-purple-white shadow rounded border-0 p-2"
+            />
+      </form>
+      {users.filter(user => user.username.toLowerCase()
+      .includes(searchFilter.toLowerCase()))
+      .map(user => (
+        <div key={user.id}>
+          <img src={user.profile_picture} width="150px"/>
+          <Link to={`/users/${user.id}`}>
+            <h3>{user.username}</h3>
+          </Link>
+            <p>Email: {user.email}</p>
+            <p>Bio: {user.bio}</p>
+          <h3>Recent Reviews by {user.username}</h3>
+            <ul>
+              {user.film_users
+              .slice(0,3)
+              .map((film_user, i) => (
+                <div key={i}>
+                  <h5>{film_user.film}</h5>
+                  <p>{film_user.review}</p>
+                </div>
+              ))}
+            </ul>
+          <hr />
+        </div>
+      ))}
+    </section>
   )
 }

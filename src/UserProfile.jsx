@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
+import { UserLinkBar } from "./UserLinkBar"
 
 export function UserProfile({currentUser, films}) {
   const [user, setUser] = useState({films: [], film_users: []})
@@ -52,8 +53,9 @@ export function UserProfile({currentUser, films}) {
 
   return (
     <div>
-    <h1>{user.username}'s Profile</h1>
+    <h1 className="text-center">{user.username}'s Profile</h1>
       <img src={user.profile_picture} width="400px" />
+      <UserLinkBar />
       <p>{user.bio}</p>
       <p>Email: {user.email}</p>
        <h2>Favorites</h2>

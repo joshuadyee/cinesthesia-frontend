@@ -3,11 +3,13 @@ import axios from "axios"
 import { useParams } from "react-router-dom"
 import { UserReviewsNew } from "./UserReviewsNew"
 import { CurrentUser } from "./Utility/CurrentUser"
+import { Link } from "react-router-dom"
 
-export function FilmsShow() {
+export function FilmsShow(props) {
   const [film, setFilm] = useState({
     casts: [], director: "", film_poster: "", film_users: [], genres: [], logline: "", mpa_rating: "", runtime: "", title: "", year: ""
   })
+  
   const currentUser = CurrentUser() 
 
   const params = useParams()
@@ -32,11 +34,31 @@ export function FilmsShow() {
   useEffect(getFilm, [])
 
   return(
-    <div>
-      <h1>{film.title}</h1>
-        <h3>Directed by {film.director} ({film.year})</h3>
+    <section className="p-5 ">
+
+      <div className="flex flex-column">
+
+        <div className="flex justify-center pr-2 text-gray-300 ">
+          <img 
+            src={film.film_poster}
+            width="300px" 
+            className="rounded-lg mr-4 "
+          />
+          <span className="align-bottom mb-2 text-4xl font-extrabold leading-none tracking-tight text-gray-100
+           md:text-5xl lg:text-6xl text-center ">
+            {film.title}
+          <span className="px-2 text-center text-2xl font-bold leading-none tracking-tight">{film.year}</span>
+          <span className="text-center text-2xl font-bold leading-none tracking-tight">
+            Directed by <Link to={`/directors/${params.id}`}>{film.director} </Link> 
+          </span>
+          </span>
+        </div>
+
+        
+      
+      </div>
+
           <p>{film.logline}</p>
-          <img src={film.film_poster} width="300px" />
           <p>{film.mpa_rating} // {film.runtime} minutes</p>
           <h4>Starring:</h4>
           {film.casts.map(cast => (
@@ -53,7 +75,7 @@ export function FilmsShow() {
             </ul>
           ))}
           <UserReviewsNew film={film} onCreateUserReview={handleCreateUserReview} currentUser={currentUser}/>
-    </div>
+    </section>
 
   )
 }

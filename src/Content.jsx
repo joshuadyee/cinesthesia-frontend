@@ -18,7 +18,6 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { UserReviews } from "./UserReviews";
-import { Sandbox } from "./sandbox";
 import { CurrentUser } from "./Utility/CurrentUser";
 
 
@@ -46,7 +45,7 @@ export function Content() {
   useEffect(handleFilmsIndex, [])
 
   return (
-    <div className="font-serif">
+    <div className="text-white font-serif bg-gradient-to-r from-indigo-700 from-10% via-sky-500 via-30% to-emerald-700 to-90%">
       <Routes>
         <Route path="/" element={<LandingPage films={films}/>}/>
         <Route path="/signup" element={<Signup />} />
@@ -64,7 +63,6 @@ export function Content() {
         <Route path="/directors" element={<DirectorsIndex/>}/>
         <Route path="/genres" element={<GenresIndex/>}/>
         <Route path="/reviews" element={<UserReviewsIndex/>}/>
-        <Route path="/sandbox" element={<Sandbox />}/>
       </Routes>
     </div>
   )

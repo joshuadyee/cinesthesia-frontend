@@ -3,7 +3,7 @@ import { ActorsShow } from "./ActorsShow"
 import { useEffect, useState } from "react"
 import axios from "axios"
 
-export function ActorsIndex(props) {
+export function ActorsIndex() {
   const [searchFilter, setSearchFilter] = useState("")
   const [actors, setActors] = useState([])
   const [isActorsShowVisible, setIsActorsShowVisible] = useState(false)
