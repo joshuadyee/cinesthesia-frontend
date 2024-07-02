@@ -1,8 +1,8 @@
-export function DirectorsShow(props) {
+export function DirectorsShow({director}) {
   return (
     <div>
-      <h1>Films Directed By {props.director.name}</h1>
-      {props.director.films.map((film, i) => (
+      <h1>Films Directed By {director.name}</h1>
+      {director.films.map((film, i) => (
         <ul key={i}>
           <li>{film.title}</li>
         </ul>

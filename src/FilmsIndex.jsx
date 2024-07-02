@@ -1,19 +1,23 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 
-export function FilmsIndex(props) {
+export function FilmsIndex({films}) {
   const [searchFilter, setSearchFilter] = useState("")
 
   const titleText = "Browse Your Favorite Films"
 
   const subtitleText = "Curate and Share Your Taste in Film"
 
-  console.log("Films Index", props.films)
+  console.log("Films Index", films)
 
   return (
     <div className="p-4">
-      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black text-center">{titleText.toUpperCase()}</h1>
-        <p className="text-center text-2xl font-bold leading-none tracking-tight">{subtitleText.toUpperCase()}</p>
+      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black text-center">
+        {titleText.toUpperCase()}
+      </h1>
+        <p className="text-center text-2xl font-bold leading-none tracking-tight">
+          {subtitleText.toUpperCase()}
+        </p>
         <form className="pb-4 text-right">
           <input 
             placeholder="Search by Title..."
@@ -24,7 +28,7 @@ export function FilmsIndex(props) {
           />
         </form>
         <div className="row row-cols-1 row-cols-md-4 g-4">
-          {props.films.filter(film => 
+          {films.filter(film => 
             film.title
               .toLowerCase()
               .includes(searchFilter.toLowerCase()))

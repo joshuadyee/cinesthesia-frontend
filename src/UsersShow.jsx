@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import { UserLinkBar } from "./UserLinkBar"
 
 
-export function UsersShow({films}) {  
+export function UsersShow() {  
   
   const [user, setUser] = useState({films: [], film_users: []})
 

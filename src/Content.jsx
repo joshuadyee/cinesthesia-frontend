@@ -53,7 +53,7 @@ export function Content() {
         <Route path="/profile" element={<UserProfile films={films} currentUser={currentUser}/>}/>
         <Route path="/userfilms" element={<UserFilms currentUser={currentUser}/>}/>
         <Route path="/userreviews" element={<UserReviews currentUser={currentUser}/>}/>
-        <Route path="/login" element={<Login />} />
+        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/logout" element={<LogoutLink />}/>
         <Route path="/users" element={<UsersIndex />}/>
         <Route path="/users/:id" element={<UsersShow films={films} />}/>

@@ -1,8 +1,8 @@
-export function GenresShow(props) {
+export function GenresShow({genre}) {
   return (
     <div>
-      <h2>{props.genre.genre} Films</h2>
-      {props.genre.films.map((film, i) => (
+      <h2>{genre.genre} Films</h2>
+      {genre.films.map((film, i) => (
         <ul key={i}>
           <li>{film.title}</li>
         </ul>

@@ -5,7 +5,7 @@ import { UserReviewsNew } from "./UserReviewsNew"
 import { CurrentUser } from "./Utility/CurrentUser"
 import { Link } from "react-router-dom"
 
-export function FilmsShow(props) {
+export function FilmsShow() {
   const [film, setFilm] = useState({
     casts: [], director: "", film_poster: "", film_users: [], genres: [], logline: "", mpa_rating: "", runtime: "", title: "", year: ""
   })
@@ -29,6 +29,8 @@ export function FilmsShow(props) {
       successCallback()
     })
   }
+
+  console.log("params", params)
   
 
   useEffect(getFilm, [])
