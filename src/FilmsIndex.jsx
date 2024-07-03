@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom"
 
 export function FilmsIndex({films}) {
@@ -8,8 +8,8 @@ export function FilmsIndex({films}) {
 
   const subtitleText = "Curate and Share Your Taste in Film"
 
-  console.log("Films Index", films)
-
+  // console.log("Films Index", films)
+  
   return (
     <div className="p-4">
       <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black text-center">
@@ -25,14 +25,19 @@ export function FilmsIndex({films}) {
             value={searchFilter}
             onChange={event => setSearchFilter(event.target.value)}
             className="bg-purple-white shadow rounded border-0 p-2 text-black"
+            list="titles"
           />
+          <datalist id="titles">
+          {films.slice(0, 3).map(film =>
+            <option key={film.id}>{film.title}</option>
+          )}
+          </datalist>
         </form>
         <div className="row row-cols-1 row-cols-md-4 g-4">
-          {films.filter(film => 
-            film.title
-              .toLowerCase()
-              .includes(searchFilter.toLowerCase()))
-              .map(film => (
+          {films
+            .filter(film => 
+              film.title.toLowerCase().includes(searchFilter.toLowerCase()))
+            .map(film => (
             <div className="col" key={film.id}>
               <div className="card h-100">
                 <Link to={`/films/${film.id}`} className="btn btn-primary">
@@ -42,12 +47,15 @@ export function FilmsIndex({films}) {
                     alt={film.title} 
                   />
                 </Link>
-                <div className="card-body">
+
+                {/* <div className="card-body">
                   <h3 className="card-title">{film.title}</h3>
                   <p className="card-text">{film.logline}</p>
-                </div>
+                </div> */}
                 <div className="card-footer">
-                  <small className="text-muted">{film.year} // {film.mpa_rating}</small><br/>
+                  <small className="text-muted text-center">
+                    {film.year} // {film.mpa_rating}
+                  </small>
                 </div>
               </div>
             </div>

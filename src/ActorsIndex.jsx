@@ -43,8 +43,9 @@ export function ActorsIndex() {
         onChange={event => setSearchFilter(event.target.value)}
         />
       </p>
-      {actors.filter(actor => actor.name.toLowerCase()
-      .includes(searchFilter.toLowerCase()))
+      {actors
+      .filter(actor => 
+        actor.name.toLowerCase().includes(searchFilter.toLowerCase()))
       .map(actor => (
         <div key={actor.id}>
           <h3>{actor.name}</h3>
