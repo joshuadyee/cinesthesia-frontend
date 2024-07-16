@@ -29,25 +29,25 @@ export function Header() {
   let loggedInStatus = localStorage.jwt? (
       <ul className="flex space-x-4">
         <li>
-          <a href="/profile" className="inline text-sky-300 text-lg rounded-md p-1 hover:bg-gray-600 hover:text-white no-underline" >
+          <a href="/profile" className="inline text-sky-300 text-lg p-1 hover:text-white no-underline" >
           {currentUser.username.toUpperCase()}
          </a>
         </li>
         <li>
-          <a href='/users' className="text-sky-300 text-lg rounded-md p-1 hover:bg-gray-600 hover:text-white no-underline">
+          <a href='/users' className="text-sky-300 text-lg p-1 hover:text-white no-underline">
             MEMBERS
           </a>
         </li>
         <li>
-          <a href='/films' className="text-sky-300 text-lg rounded-md p-1 hover:bg-gray-600 hover:text-white no-underline">
+          <a href='/films' className="text-sky-300 text-lg p-1 hover:text-white no-underline">
             FILMS
           </a>
         </li>
-        {/* <a href='/actors' className="text-sky-300 rounded-md p-1 hover:bg-gray-600 hover:text-white no-underline">ACTORS</a> 
-        <a href='/directors' className="text-sky-300 rounded-md p-1 hover:bg-gray-600 hover:text-white no-underline">DIRECTORS</a>
-        <a href='/genres' className="text-sky-300 rounded-md p-1 hover:bg-gray-600 hover:text-white no-underline">GENRES</a> */}
+        {/* <a href='/actors' className="text-sky-300 p-1 hover:text-white no-underline">ACTORS</a> 
+        <a href='/directors' className="text-sky-300 p-1 hover:text-white no-underline">DIRECTORS</a>
+        <a href='/genres' className="text-sky-300 p-1 hover:text-white no-underline">GENRES</a> */}
         <li>
-          <a href='/reviews' className="text-sky-300 text-lg rounded-md p-1 hover:bg-gray-600 hover:text-white no-underline">
+          <a href='/reviews' className="text-sky-300 text-lg p-1 hover:text-white no-underline">
             REVIEWS
           </a>
         </li>
@@ -58,10 +58,10 @@ export function Header() {
     ) : (
       <ul className="flex justify-start space-x-4">
         <li>
-          <Link className="text-sky-300 text-lg rounded-md p-1 hover:bg-gray-600 hover:text-white no-underline " onClick={handleShowLoginModal}>LOGIN</Link> 
+          <Link className="text-sky-300 text-lg p-1 hover:text-white no-underline " onClick={handleShowLoginModal}>LOGIN</Link> 
         </li>
         <li>
-          <Link className="text-sky-300 text-lg rounded-md p-1 hover:bg-gray-600 hover:text-white no-underline" onClick={handleShowSignupModal}>SIGNUP</Link>
+          <Link className="text-sky-300 text-lg p-1 hover:text-white no-underline" onClick={handleShowSignupModal}>SIGNUP</Link>
         </li>
       </ul>
       )
