@@ -7,17 +7,28 @@ import { Link } from "react-router-dom"
 
 export function FilmsShow() {
   const [film, setFilm] = useState({
-    casts: [], director: "", film_poster: "", film_users: [], genres: [], logline: "", mpa_rating: "", runtime: "", title: "", year: ""
+    casts: [],
+    director: [],
+    director_id: "",
+    film_poster: "", 
+    film_backdrop: "",
+    film_users: [], 
+    genres: [], 
+    logline: "", 
+    mpa_rating: "", 
+    runtime: "", 
+    title: "", 
+    year: "",
   })
   
   const currentUser = CurrentUser() 
-
   const params = useParams()
+  let genreList = film.genres.map(genre => genre.genre).join(", ")
+  // console.log(genreList)
 
   const getFilm = () => {
-    console.log("getting film")
     axios.get(`http://localhost:3000/films/${params.id}.json`).then(response => {
-      console.log(response.data)
+      console.log("getting film", response.data)
       setFilm(response.data)
     })
   }
@@ -30,53 +41,57 @@ export function FilmsShow() {
     })
   }
 
-  console.log("params", params)
-  
+  console.log(film.film_users)
 
   useEffect(getFilm, [])
 
   return(
-    <section className="p-5 ">
-
-      <div className="flex flex-column">
-
-        <div className="flex justify-center pr-2 text-gray-300 ">
+    <section >
+      <img 
+        src={film.film_backdrop}
+        alt={film.title}
+        className="box-border object-contain mb-4 mx-auto justify-center align-center opacity-90 rounded-b-lg shadow-2xl "
+      />
+      <div className="flex px-5 mb-4 h-2/5">
+        <div className="flex justify-center pr-2 text-gray-300 rounded-bl-lg flex-shrink-0">
           <img 
             src={film.film_poster}
             width="300px" 
-            className="rounded-lg mr-4 "
+            className="rounded-lg shadow-xl border-2 border-gray-300 hover:shadow-2xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
           />
-          <span className="align-bottom mb-2 text-4xl font-extrabold leading-none tracking-tight text-gray-100
-           md:text-5xl lg:text-6xl text-center ">
+        </div>
+        <div className="flex flex-col justify-center mx-auto w-1/2 min-w-1/2">
+          <span className="mb-4 text-4xl font-extrabold md:text-5xl lg:text-6xl text-center text-white">
             {film.title}
-          <span className="px-2 text-center text-2xl font-bold leading-none tracking-tight">{film.year}</span>
-          <span className="text-center text-2xl font-bold leading-none tracking-tight">
-            Directed by <Link to={`/directors/${params.id}`}>{film.director} </Link> 
+            <span className="pl-4 text-2xl font-bold tracking-tight text-center hover:text-purple-200">
+              {film.year}
+            </span>
           </span>
+          <span className="mb-5 text-center text-2xl font-bold leading-none tracking-tight">
+            Directed by <Link to={`/directors/${film.director_id}`} className="no-underline text-white hover:text-blue-400 hover:underline">{film.director}</Link>  
+          </span>
+          <span className="mb-5 text-center align-middle">{film.logline}</span>
+          <span className="text-center">
+            <span className="border-2 border-white font-sans mr-1">{film.mpa_rating}</span>  {film.runtime} minutes // <span className="hover:text-blue">{genreList}</span>
           </span>
         </div>
-
-        
-      
       </div>
-
-          <p>{film.logline}</p>
-          <p>{film.mpa_rating} // {film.runtime} minutes</p>
-          <h4>Starring:</h4>
-          {film.casts.map(cast => (
-            <ul key={cast.id}>
-              <li>{cast.name}</li>
-            </ul>
-          ))}
-          <h4>Recent Reviews</h4>
-          {film.film_users.map(review => (
-            <ul key={review.id}>Review by {review.user}
-                <li>{review.rating}</li>
-                <li>{review.review}</li>
-                <hr />
-            </ul>
-          ))}
-          <UserReviewsNew film={film} onCreateUserReview={handleCreateUserReview} currentUser={currentUser}/>
+      <hr className="border-slate-300 border-2"/>
+      <h3>Recent Reviews</h3>
+      {film.film_users.slice(0,5).map(review => (
+        <ul key={review.id}>Review by: {review.user}
+            <li>{review.rating}</li>
+            <li>{review.review}</li>
+        </ul>
+      ))}
+      <hr className="border-slate-300 border-2"/>
+      <h3>Starring:</h3>
+      {film.casts.map(cast => (
+        <ul key={cast.id}>
+          <li>{cast.name}</li>
+        </ul>
+      ))}
+      <UserReviewsNew film={film} onCreateUserReview={handleCreateUserReview} currentUser={currentUser}/>
     </section>
 
   )

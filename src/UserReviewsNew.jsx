@@ -58,9 +58,9 @@ export function UserReviewsNew(props) {
 
   if (!localStorage.jwt) {
     return (
-      <div>
+      <div className="-mb-2 pb-2">
         <h3>
-          Please <button onClick={handleShowLoginModal}>Login</button> to add a review
+          Please <button className="hover:text-blue-500 hover:underline" onClick={handleShowLoginModal}>Login</button> to add a review
           <Modal show={isModalShowVisible} onClose={handleClose}>
             <Login />
           </Modal>

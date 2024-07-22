@@ -23,7 +23,7 @@ import { CurrentUser } from "./Utility/CurrentUser";
 
 export function Content() {
   const [films, setFilms] = useState([])
-  const [userReviews, setUserReviews] = useState([])
+  const currentUser = CurrentUser()
 
   const handleFilmsIndex = () => {
     axios.get("http://localhost:3000/films.json").then(response => {
@@ -32,20 +32,11 @@ export function Content() {
     })
   }
 
-  const handleCreateUserReview = (params, successCallback) => {
-    // console.log("handle create userReview", params)
-    axios.post("http://localhost:3000/film_users.json", params).then(response => {
-      setUserReviews([...userReviews, response.data])
-      successCallback()
-    })
-  }
-
-  const currentUser = CurrentUser()
-
   useEffect(handleFilmsIndex, [])
 
   return (
-    <div className="text-white font-serif bg-gradient-to-r from-indigo-700 from-10% via-sky-500 via-30% to-emerald-700 to-90%">
+    <div className="text-slate-100 font-serif bg-gradient-to-r from-indigo-900 from-10% via-indigo-700 via-30% to-emerald-900 to-90%">
+      <div className="container mx-auto">
       <Routes>
         <Route path="/" element={<LandingPage films={films}/>}/>
         <Route path="/signup" element={<Signup />} />
@@ -64,6 +55,7 @@ export function Content() {
         <Route path="/genres" element={<GenresIndex/>}/>
         <Route path="/reviews" element={<UserReviewsIndex/>}/>
       </Routes>
+      </div>
     </div>
   )
 }

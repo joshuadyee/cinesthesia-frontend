@@ -12,7 +12,7 @@ export function FilmsIndex({films}) {
   
   return (
     <div className="p-4">
-      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black text-center">
+      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-white-100 md:text-5xl lg:text-6xl text-center">
         {titleText.toUpperCase()}
       </h1>
         <p className="text-center text-2xl font-bold leading-none tracking-tight">
@@ -20,7 +20,7 @@ export function FilmsIndex({films}) {
         </p>
         <form className="pb-4 text-right">
           <input 
-            placeholder="Search by Title..."
+            placeholder="Search by Title"
             type="text"
             value={searchFilter}
             onChange={event => setSearchFilter(event.target.value)}
@@ -28,7 +28,7 @@ export function FilmsIndex({films}) {
             list="titles"
           />
           <datalist id="titles">
-          {films.slice(0, 3).map(film =>
+          {films.slice(-3).map(film =>
             <option key={film.id}>{film.title}</option>
           )}
           </datalist>
