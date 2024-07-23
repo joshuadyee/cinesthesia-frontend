@@ -60,7 +60,8 @@ export function UserReviewsNew(props) {
     return (
       <div className="-mb-2 pb-2">
         <h3>
-          Please <button className="hover:text-blue-500 hover:underline" onClick={handleShowLoginModal}>Login</button> to add a review
+          Please 
+          <button className="hover:text-blue-500 hover:underline" onClick={handleShowLoginModal}>Login</button> to add a review
           <Modal show={isModalShowVisible} onClose={handleClose}>
             <Login />
           </Modal>
@@ -69,7 +70,7 @@ export function UserReviewsNew(props) {
     )
   } else {
     return (
-      <div>
+      <aside>
         <h1>New Review</h1>
         <form>
           <div>
@@ -107,7 +108,7 @@ export function UserReviewsNew(props) {
               onChange={handleReviewChange} />
           </div>
         </form>
-      </div>
+      </aside>
     )
   }
 }

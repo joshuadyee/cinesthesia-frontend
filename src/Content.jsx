@@ -1,12 +1,11 @@
 import { LandingPage } from "./LandingPage";
 import { Signup } from "./Signup";
-import { Login } from "./Login";
 import { LogoutLink } from "./LogoutLink";
 import { UsersIndex } from "./UsersIndex";
 import { UsersShow } from "./UsersShow";
 import { UserReviewsIndex } from "./UserReviewsIndex";
-import { UserReviewsNew } from "./UserReviewsNew";
 import { UserProfile } from "./UserProfile";
+import { UserReviews } from "./UserReviews";
 import { UserFilms } from "./UserFilms";
 import { FilmsIndex } from "./FilmsIndex";
 import { FilmsShow } from "./FilmsShow";
@@ -17,7 +16,6 @@ import { Welcome } from "./Welcome";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { UserReviews } from "./UserReviews";
 import { CurrentUser } from "./Utility/CurrentUser";
 
 
@@ -35,7 +33,7 @@ export function Content() {
   useEffect(handleFilmsIndex, [])
 
   return (
-    <div className="text-slate-100 font-serif bg-gradient-to-r from-indigo-900 from-10% via-indigo-700 via-30% to-emerald-900 to-90%">
+    <main className="flex flex-col min-h-screen text-slate-100 font-serif bg-gradient-to-r from-indigo-900 from-10% via-indigo-700 via-30% to-emerald-900 to-90%">
       <div className="container mx-auto">
       <Routes>
         <Route path="/" element={<LandingPage films={films}/>}/>
@@ -56,6 +54,6 @@ export function Content() {
         <Route path="/reviews" element={<UserReviewsIndex/>}/>
       </Routes>
       </div>
-    </div>
+    </main>
   )
 }
