@@ -46,13 +46,13 @@ export function FilmsShow() {
   useEffect(getFilm, [])
 
   return(
-    <section >
+    <section className="w-full">
       <img 
         src={film.film_backdrop}
         alt={film.title}
-        className="box-border object-contain mb-4 mx-auto justify-center align-center opacity-90 rounded-b-lg shadow-2xl "
+        className="w-full object-contain mb-4 opacity-90 rounded-b-lg shadow-2xl"
       />
-      <div className="flex px-5 mb-4 h-2/5">
+      <div className="mx-auto flex px-5 mb-4 h-2/5">
         <div className="flex justify-center pr-2 text-gray-300 rounded-bl-lg flex-shrink-0">
           <img 
             src={film.film_poster}
@@ -62,13 +62,13 @@ export function FilmsShow() {
         </div>
         <div className="flex flex-col justify-center mx-auto w-1/2 min-w-1/2">
           <span className="mb-4 text-4xl font-extrabold md:text-5xl lg:text-6xl text-center text-white">
-            {film.title}
-            <span className="pl-4 text-2xl font-bold tracking-tight text-center hover:text-purple-200">
+           {film.title}
+            <span className="pl-4 text-2xl font-bold tracking-tight text-center hover:text-blue-500 hover:underline">
               {film.year}
             </span>
           </span>
           <span className="mb-5 text-center text-2xl font-bold leading-none tracking-tight">
-            Directed by <Link to={`/directors/${film.director_id}`} className="no-underline text-white hover:text-blue-400 hover:underline">{film.director}</Link>  
+            Directed by <a to={`/directors/${film.director_id}`} className="no-underline text-inherit hover:text-blue-500 hover:underline">{film.director}</a>  
           </span>
           <span className="mb-5 text-center align-middle">{film.logline}</span>
           <span className="text-center">
@@ -77,15 +77,17 @@ export function FilmsShow() {
         </div>
       </div>
       <hr className="border-slate-300 border-2"/>
-      <h3>Recent Reviews</h3>
-      {film.film_users.slice(0,5).map(review => (
-        <ul key={review.id}>Review by: {review.user}
-            <li>{review.rating}</li>
-            <li>{review.review}</li>
-        </ul>
-      ))}
+      <div>
+        <h2>Recent Reviews</h2>
+        {film.film_users.slice(0,5).map(review => (
+          <ul key={review.id} className="text-lg">Review by <a className="no-underline text-inherit hover:text-blue-500 hover:underline" href={`/users/${review.user_id}`}>{review.user}</a>
+              <li>{review.rating}</li>
+              <li>{review.review}</li>
+          </ul>
+        ))}
+      </div>
       <hr className="border-slate-300 border-2"/>
-      <h3>Starring:</h3>
+      <h2>Starring:</h2>
       {film.casts.map(cast => (
         <ul key={cast.id}>
           <li>{cast.name}</li>
