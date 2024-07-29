@@ -69,7 +69,11 @@ export function Header() {
   return (
     <header className="bg-gray-700 flex p-3 items-center justify-between text-center mx-auto text-white">
       <section className="w-11/12 flex">
-        <h1 className="px-4 py-1"><a href="/" className="no-underline text-sky-300">CINESTHESIA</a></h1> 
+        <h1 className="px-4 py-1">
+          <a href="/" className="no-underline uppercase text-sky-300 rounded-lg hover:ring-4 hover:ring-blue-500 hover:bg-sky-300 hover:text-purple-700">
+            Cinesthesia
+          </a>
+        </h1> 
         <nav className="w-full flex items-end justify-end pt-1">
           <Modal show={isLoginModalShowVisible} onClose={handleClose}>
             <Login />

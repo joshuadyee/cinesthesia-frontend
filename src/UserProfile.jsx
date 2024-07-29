@@ -68,7 +68,7 @@ export function UserProfile({currentUser, films}) {
   useEffect(getCurrentUser, [])
 
   return (
-  <div className="p-4">
+  <div className="py-4">
     <section className="mt-2">
       <div className="flex mb-4">
         <img src={user.profile_picture}  className="h-36 w-36 rounded-full mx-4"/>
@@ -83,12 +83,12 @@ export function UserProfile({currentUser, films}) {
     <div className="mb-4">
       <h2 className="uppercase text-3xl">Favorite Films</h2>
       <hr className="border-1"/>
-      <ul className="flex flex-row gap-5">
+      <ul className="flex flex-row gap-4 justify-evenly">
         {user.films.map(film => (
           <div key={film.id}>
             <li className="group">
               <a href={`/films/${film.id}`}>
-                <img src={film.film_poster} className="w-40 h-full rounded-lg object-contain group-hover:border-2 group-hover:border-blue-500" alt={film.title}
+                <img src={film.film_poster} className="w-40 h-full rounded-lg object-contain group-hover:border-2 group-hover:border-green-500" alt={film.title}
               />
               </a>
             </li>
@@ -119,30 +119,20 @@ export function UserProfile({currentUser, films}) {
     <div>
       <h2 className="uppercase text-2xl">Recently Watched Films</h2>
       <hr className="border-1"/>
-      <ul className="flex flex-row gap-5 ">
+      <ul className="flex flex-row gap-4 justify-evenly">
       {user.film_users
         .slice(0,5)
         .filter(film_user => film_user.watched)
         .map(film_user => (
             <li className="group">
               <a href={`/films/${film_user.film_id}`}>
-                <img src={film_user.film_poster} alt="film_poster" className="w-40 h-full rounded-lg object-contain group-hover:border group-hover:border-blue-500"/>
+                <img src={film_user.film_poster} alt="film_poster" className="w-40 h-full rounded-lg object-contain group-hover:border-2 group-hover:border-green-500"/>
               </a>
             </li>
         ))
       }
       </ul>
     </div>
-    {/* <h2>Reviews by {user.username}</h2>
-      <ul>
-        {user.film_users.map(review => (
-          <div key={review.id}>
-            <li><h3>{review.film}</h3></li>
-              <p>Rating: {review.rating}</p>
-              <p>Review: {review.review}</p>
-          </div>
-        ))}
-      </ul> */}
     <footer>Account created on {user.created_at}</footer>
   </div>
   )

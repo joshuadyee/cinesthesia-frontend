@@ -19,40 +19,71 @@ export function UsersShow() {
     })
   }
 
+  console.log("PARAMS", params)
+  console.log("FAVES", user.films)
+  console.log("REVIEWS", user.film_users)
+
   useEffect(getUser, [])
 
   return (
-    <div>
-      <h1>{user.username}</h1>
-      <UserLinkBar />
-        <img src={user.profile_picture} width="400px" />
-        <p>{user.bio}</p>
-        <p>Email: {user.email}</p>
-        <h2>Favorites</h2>
-          <ul>
-            {user.films.map(film => (
-              <div key={film.id}>
-                <li>
-                  <Link to={`/films/${film.id}`}>
-                    <img width="100px" src={film.film_poster} 
-                  /></Link>
-                </li>
-              </div>
-            ))}
-          </ul>
-        <h2>Recent Reviews by {user.username}</h2>
-          <ul>
-            {user.film_users
-            .filter(film_user => film_user.review !== null)
-            .slice(-3)
-              .map(review => (
-              <div key={review.id}>
-                <li><h3>{review.film}</h3></li>
-                  <p>Rating: {review.rating}</p>
-                  <p>Review: {review.review}</p>
-              </div>
-            ))}
-          </ul>
+    <div className="py-4">
+      <section className="mt-2">
+        <div className="flex mb-4">
+          <img src={user.profile_picture}  className="h-36 w-36 rounded-full mx-4"/>
+          <div className="flex flex-col">
+            <h1 className="font-medium ">{user.username}</h1>
+            <hr className="border-3 "/>
+            <p className="text-bottom">{user.bio}</p>
+          </div>
+        </div>
+        <UserLinkBar />
+      </section>
+      <section className="mb-4">
+        <h2 className="uppercase text-2xl tracking-wide">Favorite Films</h2>
+        <hr className="border-2 bg-slate-100"/>
+        <ul className="flex gap-4 justify-evenly" >
+        {user.films.map(favorite => (
+          <li key={favorite.id}>
+            <a href={`/films/${favorite.id}`}>
+              <img src={favorite.film_poster} className="w-40 h-full rounded-lg  hover:border-2 hover:border-green-400 object-contain" alt="film_poster"/>
+            </a>
+          </li>
+        ))}
+        </ul>
+      </section>
+      <section className="mb-4">
+        <h2 className="uppercase text-2xl tracking-wide">Recently Watched</h2>
+        <hr className="border-2 bg-slate-100"/>
+        <ul className="flex gap-4">
+          {user.film_users
+            .slice(0,5)
+            .map(review => (
+            <li>
+              <a href={`/films/${review.film_id}`}>
+                <img src={review.film_poster} alt="film_poster" className="w-40 h-full rounded-lg  hover:border-2 hover:border-green-400 object-contain" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section>
+        <h2 className="uppercase text-2xl tracking-wide">
+          Recent Reviews by {user.username}
+        </h2>
+        <hr className="border-2 bg-slate-100"/>
+        <ul>
+          {user.film_users
+          .filter(film_user => film_user.review !== null)
+          .slice(-3)
+            .map(review => (
+            <div key={review.id}>
+              <li><h3>{review.film}</h3></li>
+                <p>Rating: {review.rating}</p>
+                <p>Review: {review.review}</p>
+            </div>
+          ))}
+        </ul>
+      </section>
         {/* <h2>Movies watched by {user.username}</h2>
         {user.film_users
         .filter(film_user => film_user.watched)
