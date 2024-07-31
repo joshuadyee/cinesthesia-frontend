@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+
 
 export function FilmsIndex({films}) {
   const [searchFilter, setSearchFilter] = useState("")
@@ -33,28 +34,23 @@ export function FilmsIndex({films}) {
           )}
           </datalist>
         </form>
-        <div className="row row-cols-1 row-cols-md-4 g-4">
+        <div className="grid grid-cols-5 gap-3">
           {films
             .filter(film => 
               film.title.toLowerCase().includes(searchFilter.toLowerCase()))
             .map(film => (
-            <div className="col" key={film.id}>
-              <div className="card h-100">
-                <Link to={`/films/${film.id}`} className="btn btn-primary">
+            <div  key={film.id} >
+              <div className="flex flex-col h-full bg-white rounded-lg shadow-md overflow-hidden">
+                <Link to={`/films/${film.id}`} className="hover:border-4 hover:border-green-400 block">
                   <img 
                     src={film.film_poster}
-                    className="card-img-top img-fluid" 
+                    className="w-full h-auto object-cover" 
                     alt={film.title} 
                   />
                 </Link>
-
-                {/* <div className="card-body">
-                  <h3 className="card-title">{film.title}</h3>
-                  <p className="card-text">{film.logline}</p>
-                </div> */}
-                <div className="card-footer">
-                  <small className="text-muted text-center">
-                    {film.year} // {film.mpa_rating}
+                <div className="flex items-center justify-center p-1 bg-inherit">
+                  <small className="text-gray-600 text-muted text-center">
+                    {film.year} /\ {film.mpa_rating}
                   </small>
                 </div>
               </div>
