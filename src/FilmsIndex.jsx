@@ -39,12 +39,13 @@ export function FilmsIndex({films}) {
             .filter(film => 
               film.title.toLowerCase().includes(searchFilter.toLowerCase()))
             .map(film => (
-            <div  key={film.id} >
+            // card
+            <div  key={film.id} className="hover:border-4 hover:border-green-400 rounded-lg"> 
               <div className="flex flex-col h-full bg-white rounded-lg shadow-md overflow-hidden">
-                <Link to={`/films/${film.id}`} className="hover:border-4 hover:border-green-400 block">
+                <Link to={`/films/${film.id}`}>
                   <img 
                     src={film.film_poster}
-                    className="w-full h-auto object-cover" 
+                    className="w-full h-auto object-contain" 
                     alt={film.title} 
                   />
                 </Link>

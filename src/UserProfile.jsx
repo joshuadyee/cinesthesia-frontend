@@ -88,7 +88,7 @@ export function UserProfile({currentUser, films}) {
           <div key={film.id}>
             <li className="group">
               <a href={`/films/${film.id}`}>
-                <img src={film.film_poster} className="w-40 h-full rounded-lg object-contain group-hover:border-2 group-hover:border-green-500" alt={film.title}
+                <img src={film.film_poster} className="w-40 h-full rounded-lg object-contain group-hover:border-4 group-hover:border-green-500" alt={film.title}
               />
               </a>
             </li>
@@ -126,7 +126,7 @@ export function UserProfile({currentUser, films}) {
         .map(film_user => (
             <li className="group">
               <a href={`/films/${film_user.film_id}`}>
-                <img src={film_user.film_poster} alt="film_poster" className="w-40 h-full rounded-lg object-contain group-hover:border-2 group-hover:border-green-500"/>
+                <img src={film_user.film_poster} alt={film_user.film} className="w-40 h-full rounded-lg object-contain group-hover:border-4 group-hover:border-green-500"/>
               </a>
             </li>
         ))
