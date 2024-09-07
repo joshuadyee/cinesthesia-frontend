@@ -71,7 +71,7 @@ export function FilmsShow() {
             </span>
             <span className="mb-5 text-left align-middle">{film.logline}</span>
             <span className="text-left">
-              <span className="border-2 border-white font-sans mr-1">{film.mpa_rating}</span>  {film.runtime} minutes //
+              <span className="border-2 border-white font-sans mr-1">{film.mpa_rating}</span>  {film.runtime} minutes •
               <span >
               {film.genres.map(genre => (
                 <a href={`/genres/${genre.genre}`} key={genre.id} className="px-1 no-underline text-inherit hover:underline hover:text-blue-500">
