@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { SearchBar } from "./Components/SearchBar";
 
 
 export function FilmsIndex({films}) {
@@ -10,29 +11,25 @@ export function FilmsIndex({films}) {
   const subtitleText = "Curate and Share Your Taste in Film"
   
   return (
-    <section className="p-12 flex flex-col">
+    <section className="px-12 flex flex-col">
       <div className="p-8 ">
         <h1 className="mb-4 text-4xl font-extrabold text-white md:text-5xl lg:text-6xl text-center">
-          {titleText.toUpperCase()}
+          {titleText}
         </h1>
-        <h3 className="text-center text-2xl font-bold text-slate-200 tracking-tight">
-          {subtitleText.toUpperCase()}
+        <h3 className="text-center texttext-2xl font-bold text-slate-200 tracking-tight">
+          {subtitleText}
         </h3>
-        <form className="text-right">
-          <input 
-            placeholder="Film Title"
-            type="text"
-            value={searchFilter}
-            onChange={event => setSearchFilter(event.target.value)}
-            className="p-2 rounded text-black"
-            list="titles"
-          />
-          <datalist id="titles">
-          {films.slice(-3).map(film =>
-            <option key={film.id}>{film.title}</option>
-          )}
-          </datalist>
-        </form>
+        <SearchBar 
+          searchFilter={searchFilter}
+          setSearchFilter={setSearchFilter}
+          placeholder={"Title"}
+          list="titles"
+        />
+        <datalist id="titles">
+        {films.slice(-3).map(film =>
+          <option key={film.id}>{film.title}</option>
+        )}
+        </datalist>
       </div>
       <div className="grid grid-cols-4 gap-3 min-w-md md:grid-cols-3 lg:grid-cols-4 min-w-[640px]">
         {films

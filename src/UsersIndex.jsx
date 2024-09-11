@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { SearchBar } from "./Components/SearchBar"
 
 export function UsersIndex() {
   const [searchFilter, setSearchFilter] = useState("")
@@ -19,41 +19,37 @@ export function UsersIndex() {
   }
 
   useEffect(handleUsersIndex, [])
-  
+
   return (
     <section className="p-4">
       <div className="flex justify-between mb-4 ">
         <h1 className="text-4xl font-semibold ">Fellow Film Fans and Critics</h1>
-        <form>
-          <input 
-            placeholder="Search by Username..."
-            type="text"
-            value={searchFilter}
-            onChange={event => setSearchFilter(event.target.value)}
-            className="text-black bg-purple-white shadow rounded border-0 p-2"
-          />
-        </form>
+        <SearchBar 
+          searchFilter={searchFilter} // Pass searchFilter state to SearchBar component
+          setSearchFilter={setSearchFilter} // Pass setSearchFilter function to SearchBar component
+          placeholder={"Username"} 
+        />
       </div>
       {users
         .filter(user => 
           user.username.toLowerCase().includes(searchFilter.toLowerCase()))
         .map(user => (
       <div key={user.id} className="flex flex-col">
-        <div className="flex mb-2">
+        <div className="flex mb-2" >
           <img src={user.profile_picture} className="w-14 h-14 object-contain rounded-full border-1 border-white mr-4"/>
           <h3 className="text-3xl content-center ">
-            <a href={`/users/${user.id}`} className=" text-white no-underline hover:underline">
+            <a href={`/users/${user.id}`} className=" text-white no-underline hover:!text-sky-400">
               {user.username}
             </a>
           </h3>
           <div className="w-full flex justify-evenly ">
-            <a href={`/userfilms`} className="content-center no-underline text-inherit hover:text-blue-500">
+            <a href={`/userfilms`} className="content-center no-underline text-inherit hover:text-sky-400">
               Films watched: {user.film_users.length}
             </a>
-            <a href={`/userreviews`} className="content-center no-underline text-inherit hover:text-blue-500">
+            <a href={`/userreviews`} className="content-center no-underline text-inherit hover:text-sky-400">
               Reviews: {reviewCount(user.film_users)}
             </a>
-            <a href="/" className="content-center no-underline text-inherit hover:text-blue-500">Likes: </a>
+            <a href="/" className="content-center no-underline text-inherit hover:text-sky-400">Likes: </a>
           </div>
         </div>
         <div className="text-neutral-200">
