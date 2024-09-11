@@ -7,8 +7,10 @@ export function LandingPage({films}) {
   const welcome = currentUser ? `Welcome back ${currentUser.username}!` : "Welcome to Cinesthesia!"
 
   return (
-    <div className="py-4 flex-auto">
-      <h1 className="text-center text-inherit text-7xl font-bold">{welcome}</h1>
+    <div className="pt-16">
+      <h1 className="text-center text-inherit text-7xl font-bold">
+        {welcome}
+      </h1>
       <FilmsIndex films={films} />
     </div>
   )

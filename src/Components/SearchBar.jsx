@@ -28,8 +28,8 @@ export const SearchBar = ({searchFilter, setSearchFilter, placeholder}) => {
   })
 
   return (
-    <form className="">
-      <div className='flex' ref={searchRef}>
+    <form>
+      <div className="flex justify-end" ref={searchRef}>
         {!isSearchVisible && ( // If search is not visible, show search icon
           <FaSearch
             className="cursor-pointer inherit text-3xl duration-1000"

@@ -29,7 +29,7 @@ export function Header() {
   let loggedInStatus = localStorage.jwt? (
       <ul className="flex space-x-4">
         <li>
-          <a href="/profile" className="inline text-sky-300 text-lg p-1 hover:text-white no-underline" >
+          <a href="/profile" className="inline text-sky-300 text-xl p-1 hover:text-white no-underline" >
           {currentUser.username.toUpperCase()}
          </a>
         </li>
@@ -67,9 +67,9 @@ export function Header() {
       )
 
   return (
-    <header className="bg-gray-700 flex p-3 items-center justify-between text-center mx-auto text-white">
+    <header className="bg-gray-700 flex p-4 justify-around">
       <section className="w-11/12 flex">
-        <h1 className="px-4 py-1">
+        <h1 className="px-4 py-2">
           <a href="/" className="no-underline uppercase text-sky-300 rounded-lg hover:ring-4 hover:ring-blue-500 hover:bg-sky-300 hover:text-purple-700">
             Cinesthesia
           </a>

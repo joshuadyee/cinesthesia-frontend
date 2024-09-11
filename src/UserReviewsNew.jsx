@@ -3,6 +3,7 @@ import { Login } from "./Login"
 import { useEffect, useState } from "react"
 import { UpdateBackend } from "./Utility/UpdateBackend"
 import axios from "axios"
+import { IoMdEye } from "react-icons/io"
 
 export function UserReviewsNew(props) {
   
@@ -70,43 +71,50 @@ export function UserReviewsNew(props) {
     )
   } else {
     return (
-      <aside>
-        <h1>New Review</h1>
+      <aside className="border-gray-500 border-2 border-solid p-2">
         <form>
-          <div>
-            {/* Film ID: <input name="film_id" type="number" /> */}
-            <input
-              type="hidden"
-              name="film_id"
-              value={props.film.id || ""}/>
-          </div>
-          <div>
-            Watched: <input 
-              type="checkbox"
-              name="watched"
-              checked={watched}
-              onChange={(e) => handleWatchedChange(props.film.id, e.target.checked)}
+          <ul className="flex flex-col gap-1">
+            Review
+            <li>
+              <input
+                type="hidden"
+                name="film_id"
+                value={props.film.id || ""}
               />
-          </div>
-          <div>
-            Rating: <input 
-              className="text-black"
-              name="rating"
-              type="number"
-              step="0.1"
-              min="0"
-              max="10"
-              value={rating}
-              onChange={handleRatingChange} />
-          </div> 
-          <div>
-            Review: <input
-              className="text-black"
-              name="review"
-              type="text"
-              value={review}
-              onChange={handleReviewChange} />
-          </div>
+            </li>
+              <IoMdEye className="text-5xl mr-4"/>
+            <li>
+              <input 
+                type="checkbox"
+                name="watched"
+                checked={watched}
+                onChange={(e) => handleWatchedChange(props.film.id, e.target.checked)}
+              />
+            </li>
+            <div>
+              <span className="mr-2">Rating</span> 
+              <input 
+                className="text-black text-center p-1 rounded"
+                name="rating"
+                type="number"
+                step="0.1"
+                min="0"
+                max="10"
+                value={rating}
+                onChange={handleRatingChange} 
+              />
+            </div> 
+            <div>
+              <span className="mr-2">Review</span>
+              <input
+                className="text-black p-1 rounded"
+                name="review"
+                type="text"
+                value={review}
+                onChange={handleReviewChange}
+              />
+            </div>
+          </ul>
         </form>
       </aside>
     )

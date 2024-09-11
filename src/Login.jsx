@@ -20,10 +20,11 @@ export function Login() {
         axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
         localStorage.setItem("jwt", response.data.jwt);
         event.target.reset();
-        window.location.href = "/films";
+        window.location.href = "/";
       })
       .catch((error) => {
         console.log(error.response);
+        alert("Invalid email or password");
         setErrors(["Invalid email or password"]);
       });
   };
