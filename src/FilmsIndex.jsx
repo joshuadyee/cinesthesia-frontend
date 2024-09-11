@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { SearchBar } from "./Components/SearchBar";
+import { SearchBar } from "./components/SearchBar";
 
 
 export function FilmsIndex({films}) {

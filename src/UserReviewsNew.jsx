@@ -1,7 +1,7 @@
 import { Modal } from "./Modal"
 import { Login } from "./Login"
 import { useEffect, useState } from "react"
-import { UpdateBackend } from "./Utility/UpdateBackend"
+import { UpdateBackend } from "./utils/UpdateBackend"
 import axios from "axios"
 import { IoMdEye } from "react-icons/io"
 

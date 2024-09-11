@@ -16,7 +16,7 @@ import { Welcome } from "./Welcome";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { CurrentUser } from "./Utility/CurrentUser";
+import { CurrentUser } from "./utils/CurrentUser";
 
 
 export function Content() {

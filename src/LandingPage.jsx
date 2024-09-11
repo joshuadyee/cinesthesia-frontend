@@ -1,5 +1,5 @@
 import { FilmsIndex } from "./FilmsIndex"
-import { CurrentUser } from "./Utility/CurrentUser"
+import { CurrentUser } from "./utils/CurrentUser"
 
 export function LandingPage({films}) {
 

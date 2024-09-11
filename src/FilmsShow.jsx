@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { useParams } from "react-router-dom"
 import { UserReviewsNew } from "./UserReviewsNew"
-import { CurrentUser } from "./Utility/CurrentUser"
+import { CurrentUser } from "./utils/CurrentUser"
 
 export function FilmsShow() {
   const [film, setFilm] = useState({

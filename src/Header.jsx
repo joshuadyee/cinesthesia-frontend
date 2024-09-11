@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Signup } from "./Signup"
 import { Modal } from "./Modal"
 import { Link } from "react-router-dom"
-import { CurrentUser } from "./Utility/CurrentUser"
+import { CurrentUser } from "./utils/CurrentUser"
 
 export function Header() {
 
