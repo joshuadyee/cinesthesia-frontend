@@ -1,4 +1,4 @@
-import { FilmsIndex } from "./FilmsIndex"
+import { FilmsIndex } from "./components/film/FilmsIndex"
 import { CurrentUser } from "./utils/CurrentUser"
 
 export function LandingPage({films}) {

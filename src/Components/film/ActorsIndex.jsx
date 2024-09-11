@@ -1,4 +1,4 @@
-import { Modal } from "./Modal"
+import { Modal } from "../../Modal"
 import { ActorsShow } from "./ActorsShow"
 import { useEffect, useState } from "react"
 import axios from "axios"

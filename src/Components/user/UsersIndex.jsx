@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { SearchBar } from "./components/SearchBar"
+import { SearchBar } from "../../components/SearchBar"
 
 export function UsersIndex() {
   const [searchFilter, setSearchFilter] = useState("")
