@@ -66,7 +66,7 @@ export function UserProfile({currentUser, films}) {
   useEffect(getCurrentUser, [])
 
   return (
-  <div className="py-4">
+  <div className="p-8">
     <section className="mt-2">
       <div className="flex mb-4">
         <img src={user.profile_picture}  className="h-36 w-36 rounded-full mx-4"/>

@@ -1,6 +1,9 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { SearchBar } from "../../components/SearchBar"
+import { IoEyeOutline } from "react-icons/io5"
+import { MdOutlineReviews } from "react-icons/md"
+import { FaRegThumbsUp } from "react-icons/fa"
 
 export function UsersIndex() {
   const [searchFilter, setSearchFilter] = useState("")
@@ -21,9 +24,11 @@ export function UsersIndex() {
   useEffect(handleUsersIndex, [])
 
   return (
-    <section className="p-4">
-      <div className="flex justify-between mb-4 ">
-        <h1 className="text-4xl font-semibold ">Fellow Film Fans and Critics</h1>
+    <section className="py-16 px-8">
+      <div className="flex justify-between mb-4">
+        <h1 className="text-4xl font-semibold text-center">
+          Fellow Film Fans and Critics
+        </h1>
         <SearchBar 
           searchFilter={searchFilter} // Pass searchFilter state to SearchBar component
           setSearchFilter={setSearchFilter} // Pass setSearchFilter function to SearchBar component
@@ -44,27 +49,32 @@ export function UsersIndex() {
           </h3>
           <div className="w-full flex justify-evenly ">
             <a href={`/userfilms`} className="content-center no-underline text-inherit hover:text-sky-400">
-              Films watched: {user.film_users.length}
+              <span className="flex gap-2 items-center">
+                <IoEyeOutline className="text-4xl"/> {user.film_users.length}
+              </span>
             </a>
             <a href={`/userreviews`} className="content-center no-underline text-inherit hover:text-sky-400">
-              Reviews: {reviewCount(user.film_users)}
+            <span className="flex gap-2 items-center">
+              <MdOutlineReviews className="text-3xl"/> {reviewCount(user.film_users)}
+            </span>
             </a>
-            <a href="/" className="content-center no-underline text-inherit hover:text-sky-400">Likes: </a>
+            <a href="/" className="content-center no-underline text-inherit hover:text-sky-400">
+              <FaRegThumbsUp className="text-2xl"/>
+            </a>
           </div>
         </div>
-        <div className="text-neutral-200">
+        {/* Activity Div */}
+        <div className="text-slate-300"> 
           <h3 className="text-2xl">Recent Activity</h3>
             <ul >
               {user.film_users
-              .slice(0,2)
+              .slice(0, 2)
               .map((film_user, i) => (
                 <div key={i}>
-                  <h5 className="flex">
+                  <a href={`/films/${film_user.film_id}`} className="flex items-center no-underline text-inherit text-xl hover:text-sky-400 content-center w-fit mb-2">
                     <img src={film_user.film_poster} alt="film_poster" className="w-12 h-12 object-contain rounded-2xl shadow-md mr-2" />
-                    <a href={`/films/${film_user.film_id}`} className="no-underline text-inherit hover:text-sky-400 content-center">
-                      {film_user.film}
-                    </a>
-                  </h5>
+                    {film_user.film}
+                  </a>
                   <p className="indent-4">"{film_user.review}"</p>
                 </div>
               ))}

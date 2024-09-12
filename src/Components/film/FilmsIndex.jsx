@@ -11,7 +11,7 @@ export function FilmsIndex({films}) {
   const subtitleText = "Curate and Share Your Taste in Film"
   
   return (
-    <section className="px-12 flex flex-col">
+    <section className="p-8 flex flex-col">
       <div className="p-8 ">
         <h1 className="mb-4 text-4xl font-extrabold text-white md:text-5xl lg:text-6xl text-center">
           {titleText}
