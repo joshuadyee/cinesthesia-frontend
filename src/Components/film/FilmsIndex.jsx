@@ -11,12 +11,12 @@ export function FilmsIndex({films}) {
   const subtitleText = "Curate and Share Your Taste in Film"
   
   return (
-    <section className="p-8 flex flex-col">
+    <section className="p-12 flex flex-col">
       <div className="p-8 ">
         <h1 className="mb-4 text-4xl font-extrabold text-white md:text-5xl lg:text-6xl text-center">
           {titleText}
         </h1>
-        <h3 className="text-center texttext-2xl font-bold text-slate-200 tracking-tight">
+        <h3 className="text-center text-2xl font-bold text-slate-200 tracking-tight">
           {subtitleText}
         </h3>
         <SearchBar 
@@ -37,7 +37,7 @@ export function FilmsIndex({films}) {
             film.title.toLowerCase().includes(searchFilter.toLowerCase()))
           .map(film => (
           // card
-          <div  key={film.id} className="border-2 border-gray-600 hover:!border-4 hover:!border-green-400 rounded-xl"> 
+          <div key={film.id} className="border-4 border-gray-600 hover:border-green-400 rounded-xl"> 
             <div className="flex flex-col h-full bg-white rounded-lg shadow-md overflow-hidden">
               <Link to={`/films/${film.id}`}>
                 <img 
