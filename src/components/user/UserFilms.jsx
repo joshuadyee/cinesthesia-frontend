@@ -16,7 +16,8 @@ export function UserFilms({currentUser}) {
 
   console.log("films", user.film_users)
 
-  useEffect(getCurrentUser, [])
+  useEffect(getCurrentUser, []);
+  
 
   return (
     <div className="p-8"> 
@@ -26,7 +27,7 @@ export function UserFilms({currentUser}) {
         .map(film_user => (
           <div key={film_user.id} className="inline-flex gap-2 items-center">
             <a href={`/films/${film_user.film_id}`} className="h-full w-32 rounded border-3 border-gray-600 hover:border-green-500">
-              <img src={film_user.film_poster}/>      
+              <img src={film_user.film_poster}/>
             </a>
           </div>
       ))}
